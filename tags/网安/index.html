@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="鹤归">
+    <meta name="keywords" content="标签: 网安, 鹤归">
     <meta name="description" content="手书无愧，无惧人间是非">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,53 +17,12 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>鹤归</title>
+    <title>标签: 网安 | 鹤归</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
 
-    <!-- index cover -->
-    <!-- <link rel="stylesheet preload" type="text/css" href="/css/indexcover.css"> -->
-    <style>
-        .carousel-control {
-            width: 45px;
-            height: 45px;
-            line-height: 55px;
-            border-radius: 45px;
-            background: transparent;
-            cursor: pointer;
-            z-index: 100;
-        }
-        
-        #prev-cover {
-            position: absolute;
-            top: 48%;
-            left: 8px;
-        }
-        
-        #next-cover {
-            position: absolute;
-            top: 48%;
-            right: 8px;;
-        }
-        
-        #prev-cover i {
-            margin-right: 3px;
-        }
-        
-        #next-cover i {
-            margin-left: 3px;
-        }
-        
-        .carousel-control:hover {
-            background-color: rgba(0, 0, 0, .4);
-        }
-        
-        .carousel-control i {
-            color: #fff;
-            font-size: 2.4rem;
-        }
-    </style>
+    <!-- bg-cover style     -->
 
 
 
@@ -84,6 +43,8 @@
 
 
 
+
+    
 
 
 
@@ -392,15 +353,9 @@
 
 </header>
 
-    
-
-
-<div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
-    
-
-    <div class="carousel-item  white-text bg-cover about-cover">
-        <div class="container">
-            <div class="row">
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
+    <div class="row">
     <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
         <div class="brand">
             <div class="title center-align">
@@ -450,201 +405,169 @@
 </script>
 
 
-
-            <div class="cover-btns">
-                <a href="#indexCard" class="waves-effect waves-light btn">
-                    <i class="fa fa-angle-double-down"></i>开始阅读
-                </a>
-
-                
-            </div>
-            <div class="cover-social-link">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        </div>
     </div>
-
-    
 </div>
-
-<script>
-    $(function () {
-        let coverSlider = $('.carousel');
-
-        //用户触摸轮播自动 restartPlay 是否生效
-        let initUserPressedOrDraggedActive = false
-
-        //用户触摸轮播自动 restartPlay
-        function initUserPressedOrDragged(instance) {
-            setInterval(() => {
-                if (instance.pressed || instance.dragged) {
-                    // console.log('initUserPressedOrDragged: ',instance.pressed,instance.dragged)
-                    restartPlay()
-                }
-            }, 1000)
-        }
-
-        coverSlider.carousel({
-            duration: Number('120'),
-            fullWidth: true,
-            indicators: 'true' === 'true',
-            onCycleTo() {
-                if (!initUserPressedOrDraggedActive) {
-                    // console.log('initUserPressedOrDraggedActive')
-                    initUserPressedOrDragged(this)
-                    initUserPressedOrDraggedActive = true
-                }
-            },
-        })
-
-        let carouselIntervalId;
-        
-        // Loop to call the next cover article picture.
-        let autoCarousel = function () {
-            carouselIntervalId = setInterval(function () {
-                coverSlider.carousel('next');
-            }, 5000);
-        };
-        autoCarousel();
-        
-
-        function restartPlay() {
-            
-            clearInterval(carouselIntervalId);
-            autoCarousel();
-            
-        };
-
-        
-        // prev and next cover post.
-        $('#prev-cover').click(function () {
-            coverSlider.carousel('prev');
-            restartPlay();
-        });
-        $('#next-cover').click(function () {
-            coverSlider.carousel('next');
-            restartPlay();
-        });
-        
-    });
-</script>
-
-
 
 <main class="content">
 
     
-    <div id="indexCard" class="index-card">
-        <div class="container ">
-            <div class="card">
-                <div class="card-content">
-                    
-                        <div class="dream">
-    
-    <div class="title center-align">
-        <i class="far fa-lightbulb"></i>&nbsp;&nbsp;一言
-    </div>
-    
-    <div class="row">
-        <div class="col l8 offset-l2 m10 offset-m1 s10 offset-s1 center-align text">
-            吾辈皆身于沟渠之中，然其必有仰望星空者也
+
+<div id="tags" class="container chip-container">
+    <div class="card">
+        <div class="card-content">
+            <div class="tag-title center-align">
+                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
+            </div>
+            <div class="tag-chips">
+                
+                
+                <a href="/tags/%E7%BD%91%E5%AE%89/" title="网安: 7">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active "
+                            data-tagname="网安" style="background-color: #F9EBEA;">网安
+                        <span class="tag-length">7</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/xss/" title="xss: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="xss" style="background-color: #F5EEF8;">xss
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E6%BC%8F%E6%B4%9E/" title="漏洞: 5">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="漏洞" style="background-color: #D5F5E3;">漏洞
+                        <span class="tag-length">5</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/sql%E6%B3%A8%E5%85%A5/" title="sql注入: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="sql注入" style="background-color: #E8F8F5;">sql注入
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" title="命令执行: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="命令执行" style="background-color: #FEF9E7;">命令执行
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="信息收集: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="信息收集" style="background-color: #F8F9F9;">信息收集
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="数据库" style="background-color: #82E0AA;">数据库
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/php/" title="php: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="php" style="background-color: #D7BDE2;">php
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="文件上传: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="文件上传" style="background-color: #A3E4D7;">文件上传
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%AD%A6%E4%B9%A0/" title="学习: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="学习" style="background-color: #85C1E9;">学习
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" title="博客搭建: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="博客搭建" style="background-color: #F8C471;">博客搭建
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/PicGo/" title="PicGo: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="PicGo" style="background-color: #F9E79F;">PicGo
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/typora/" title="typora: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="typora" style="background-color: #F5EEF8;">typora
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="文件包含" style="background-color: #E8F8F5;">文件包含
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+            </div>
         </div>
     </div>
 </div>
 
-                    
-
-                    
-
-                    
-
-                    
-                    <div id="recommend-sections" class="recommend">
-                        
-
-
-
-
-
-<div class="title"><i class="far fa-thumbs-up"></i>&nbsp;&nbsp;推荐文章</div>
-
-<div class="row">
-
-    
-    
-    <div class="col s12" >
-        
-             <div class="post-card" style="background-image: url('https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/100.jpg')">
-        
-            <div class="post-body">
-                <div class="post-categories">
-                    
-                        
-                            <a href="/categories/%E7%BD%91%E5%AE%89/" class="category">网安</a>
-                        
-                    
-                </div>
-                <a href="/2023/07/12/wang-an-xue-xi-lu-xian/">
-                    <h3 class="post-title">网安学习</h3>
-                </a>
-                <p class="post-description">网安学习路线首先要安装大量软件，如果有没用硬盘的话，在那个没用的硬盘里创一个文件夹，把用的软件都放进去，（方便找，或者以后换硬盘换电脑时移动）这是第一步，也是很折磨的一步</p>
-                <a href="/2023/07/12/wang-an-xue-xi-lu-xian/" class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #FF5E3A 0%, #FF2A68 100%)" target="_blank">
-                    <i class="icon far fa-eye fa-fw"></i>阅读更多
-                </a>
-            </div>
-        </div>
-    </div>
     
 
-</div>
-
-
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    
-
-    
-
-    <!-- 所有文章卡片 -->
     <article id="articles" class="container articles">
-        <div class="row article-row">
+        <div class="row tags-posts">
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            
+            <div class="article tag-post col s12 m6 l4" data-tags="网安, 漏洞, sql注入" data-aos="fade-up">
                 <div class="card">
                     <a href="/2023/07/23/sql-zhu-ru/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/103.jpg" class="responsive-img" alt="sql注入">
                             
                             <span class="card-title">sql注入</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-·前言结构化查询语言（Structured Query Language，缩写：SQL），是一种特殊的编程语言，用于数据库中的标准数据查询语言。SQL注入（SQL Injection）是一种常见的Web安全漏洞，主要形成的原因是在数据交互
-                            
-                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2023-07-23
@@ -654,57 +577,28 @@
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
                                 <a href="/categories/sql%E6%B3%A8%E5%85%A5/" class="post-category">
-                                    sql注入
+                                sql注入
                                 </a>
                                 
                                 
                             </span>
                         </div>
                     </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E7%BD%91%E5%AE%89/">
-                            <span class="chip bg-color">网安</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%BC%8F%E6%B4%9E/">
-                            <span class="chip bg-color">漏洞</span>
-                        </a>
-                        
-                        <a href="/tags/sql%E6%B3%A8%E5%85%A5/">
-                            <span class="chip bg-color">sql注入</span>
-                        </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            
+            <div class="article tag-post col s12 m6 l4" data-tags="网安, 漏洞, 文件上传" data-aos="fade-up">
                 <div class="card">
                     <a href="/2023/07/21/wen-jian-shang-chuan/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/102.jpg" class="responsive-img" alt="文件上传">
                             
                             <span class="card-title">文件上传</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-一、WebShell 与 WebShell 管理工具
-1.1 什么叫做WebShell ？
-WebShell , 简称网页后门。简单来说它是运行在Web应用之上的远程控制程序。
-webShell其实就是一张网页，由PHP、JSP、ASP、
-                            
-                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2023-07-21
@@ -714,55 +608,28 @@ webShell其实就是一张网页，由PHP、JSP、ASP、
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
                                 <a href="/categories/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="post-category">
-                                    文件上传
+                                文件上传
                                 </a>
                                 
                                 
                             </span>
                         </div>
                     </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E7%BD%91%E5%AE%89/">
-                            <span class="chip bg-color">网安</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%BC%8F%E6%B4%9E/">
-                            <span class="chip bg-color">漏洞</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">
-                            <span class="chip bg-color">文件上传</span>
-                        </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            
+            <div class="article tag-post col s12 m6 l4" data-tags="网安, 漏洞, 文件包含" data-aos="fade-up">
                 <div class="card">
                     <a href="/2023/07/20/wen-jian-bao-han/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/104.jpg" class="responsive-img" alt="文件包含">
                             
                             <span class="card-title">文件包含</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-一、什么是文件包含漏洞？
-1、文件包含概述和SQL注入等攻击方式一样，文件包含漏洞也是一种“注入型漏洞”，其本质就是输入一段用户能够控制的脚本或者代码，并让服务器端执行。什么叫包含呢？以PHP为例，我们常常把可重复使用的函数写入到单个文件
-                            
-                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2023-07-20
@@ -772,55 +639,28 @@ webShell其实就是一张网页，由PHP、JSP、ASP、
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
                                 <a href="/categories/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" class="post-category">
-                                    文件包含
+                                文件包含
                                 </a>
                                 
                                 
                             </span>
                         </div>
                     </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E7%BD%91%E5%AE%89/">
-                            <span class="chip bg-color">网安</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%BC%8F%E6%B4%9E/">
-                            <span class="chip bg-color">漏洞</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">
-                            <span class="chip bg-color">文件包含</span>
-                        </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            
+            <div class="article tag-post col s12 m6 l4" data-tags="网安, 信息收集" data-aos="fade-up">
                 <div class="card">
                     <a href="/2023/07/15/xin-xi-shou-ji/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/105.jpg" class="responsive-img" alt="信息收集">
                             
                             <span class="card-title">信息收集</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                信息收集
-
-一、whois信息收集及利用方式Whois查询1、简单介绍whois（读作“Who is”，非缩写）是用来查询域名的IP以及所有者等信息的传输协议。简单说，whois就是一个用来查询域名是否已经被注册，以及注册域名的详细信息的数
-                            
-                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2023-07-15
@@ -830,107 +670,28 @@ webShell其实就是一张网页，由PHP、JSP、ASP、
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
                                 <a href="/categories/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" class="post-category">
-                                    信息收集
+                                信息收集
                                 </a>
                                 
                                 
                             </span>
                         </div>
                     </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E7%BD%91%E5%AE%89/">
-                            <span class="chip bg-color">网安</span>
-                        </a>
-                        
-                        <a href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">
-                            <span class="chip bg-color">信息收集</span>
-                        </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/07/15/teng-xun-yun-cos-picgo-typora-gao-ding-ge-ren-bo-ke-tu-chuang/">
-                        <div class="card-image">
-                            
-                            <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/106.jpg" class="responsive-img" alt="腾讯云cos搭建图床">
-                            
-                            <span class="card-title">腾讯云cos搭建图床</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-一、腾讯云配置腾讯云对象存储COS有50G免费流量资源包赠送有效期6个月没有注册过腾讯云的先注册，之后实名认证就可以使用了腾讯云COS图片存储是收费的，具体的收费方式看官网
-1.前往对象存储页面，创建存储桶访问腾讯云对象存储COS的控制台
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E8%85%BE%E8%AE%AF%E4%BA%91cos-PicGo-typora%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/" class="post-category">
-                                    腾讯云cos+PicGo+typora搭建个人博客图床
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
-                            <span class="chip bg-color">博客搭建</span>
-                        </a>
-                        
-                        <a href="/tags/PicGo/">
-                            <span class="chip bg-color">PicGo</span>
-                        </a>
-                        
-                        <a href="/tags/typora/">
-                            <span class="chip bg-color">typora</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-tags="网安, 学习" data-aos="fade-up">
                 <div class="card">
                     <a href="/2023/07/12/wang-an-xue-xi-lu-xian/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/100.jpg" class="responsive-img" alt="网安学习">
                             
                             <span class="card-title">网安学习</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                网安学习路线首先要安装大量软件，如果有没用硬盘的话，在那个没用的硬盘里创一个文件夹，把用的软件都放进去，（方便找，或者以后换硬盘换电脑时移动）这是第一步，也是很折磨的一步，过程中会出现很多非预期的问题报错等，耐下性子忍过去，有问题一起解决。
-                            
-                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2023-07-12
@@ -940,51 +701,28 @@ webShell其实就是一张网页，由PHP、JSP、ASP、
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
                                 <a href="/categories/%E7%BD%91%E5%AE%89/" class="post-category">
-                                    网安
+                                网安
                                 </a>
                                 
                                 
                             </span>
                         </div>
                     </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E7%BD%91%E5%AE%89/">
-                            <span class="chip bg-color">网安</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%AD%A6%E4%B9%A0/">
-                            <span class="chip bg-color">学习</span>
-                        </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            
+            <div class="article tag-post col s12 m6 l4" data-tags="网安, 漏洞, 命令执行" data-aos="fade-up">
                 <div class="card">
                     <a href="/2023/07/10/ming-ling-zhi-xing-de-rao-guo-zi-shi/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/107.jpg" class="responsive-img" alt="命令执行绕过">
                             
                             <span class="card-title">命令执行绕过</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                先看题目
-题目题目很单一，目的就是为了让我们通过参数传入内容来执行代码。因为题目是与ping有关，当我们输入127.0.0.1时，它会进行ping命令操作。一般根据ping命令相关的命令执行，正常情况有五种写法
-123456127.0.0.
-                            
-                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2023-07-10
@@ -994,107 +732,28 @@ webShell其实就是一张网页，由PHP、JSP、ASP、
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
                                 <a href="/categories/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E7%BB%95%E8%BF%87/" class="post-category">
-                                    命令执行绕过
+                                命令执行绕过
                                 </a>
                                 
                                 
                             </span>
                         </div>
                     </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E7%BD%91%E5%AE%89/">
-                            <span class="chip bg-color">网安</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%BC%8F%E6%B4%9E/">
-                            <span class="chip bg-color">漏洞</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">
-                            <span class="chip bg-color">命令执行</span>
-                        </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2023/06/25/shu-ju-ku-lian-jie/">
-                        <div class="card-image">
-                            
-                            <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/108.jpg" class="responsive-img" alt="数据库连接">
-                            
-                            <span class="card-title">数据库连接</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-连接数据库123456789101112&lt;?php$servername = &quot;localhost&quot;;$username = &quot;root&quot;;$password = &quot;root&quo
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-25
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5/" class="post-category">
-                                    数据库连接
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                            <span class="chip bg-color">数据库</span>
-                        </a>
-                        
-                        <a href="/tags/php/">
-                            <span class="chip bg-color">php</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-tags="网安, xss, 漏洞" data-aos="fade-up">
                 <div class="card">
                     <a href="/2023/06/15/xss/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/101.jpg" class="responsive-img" alt="xss">
                             
                             <span class="card-title">xss</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-1 XSS漏洞简介定义&#x2F;原理：跨站脚本（Cross-Site Scripting），本应该缩写为CSS，但是该缩写已被层叠样式脚本Cascading Style Sheets所用，所以改简称为XSS。也称跨站脚本或跨站脚本攻击。
-                            
-                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2023-06-15
@@ -1104,38 +763,18 @@ webShell其实就是一张网页，由PHP、JSP、ASP、
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
                                 <a href="/categories/xss/" class="post-category">
-                                    xss
+                                xss
                                 </a>
                                 
                                 
                             </span>
                         </div>
                     </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E7%BD%91%E5%AE%89/">
-                            <span class="chip bg-color">网安</span>
-                        </a>
-                        
-                        <a href="/tags/xss/">
-                            <span class="chip bg-color">xss</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%BC%8F%E6%B4%9E/">
-                            <span class="chip bg-color">漏洞</span>
-                        </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
             
         </div>
     </article>
-
 </main>
 
 

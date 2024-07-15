@@ -1,0 +1,1139 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="xss, 鹤归">
+    <meta name="description" content="
+1 XSS漏洞简介定义&amp;#x2F;原理：跨站脚本（Cross-Site Scripting），本应该缩写为CSS，但是该缩写已被层叠样式脚本Cascading Style Sheets所用，所以改简称为XSS。也称跨站脚本或跨站脚本攻击。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>xss | 鹤归</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">鹤归</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-book" style="zoom: 0.6;"></i>
+      
+      <span>文章</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/tags">
+          
+          <i class="fas fa-tags" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>标签</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/categories">
+          
+          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>分类</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/archives">
+          
+          <i class="fas fa-archive" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>时轴</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>清单</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/musics">
+          
+          <i class="fas fa-music" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>音乐</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/movies">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>电影</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>相册</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">鹤归</div>
+        <div class="logo-desc">
+            
+            手书无愧，无惧人间是非
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-book"></i>
+			
+			文章
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/tags " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-tags" style="position: absolute;left:50px" ></i>
+			      
+		          <span>标签</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/categories " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
+			      
+		          <span>分类</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/archives " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-archive" style="position: absolute;left:50px" ></i>
+			      
+		          <span>时轴</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			清单
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="/musics " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-music" style="position: absolute;left:50px" ></i>
+			      
+		          <span>音乐</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/movies " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>电影</span>
+                  </a>
+                </li>
+              
+                <li>
+
+                  <a href="/galleries " style="margin-left:75px">
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>相册</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/101.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">xss</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E5%AE%89/">
+                                <span class="chip bg-color">网安</span>
+                            </a>
+                        
+                            <a href="/tags/xss/">
+                                <span class="chip bg-color">xss</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%BC%8F%E6%B4%9E/">
+                                <span class="chip bg-color">漏洞</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/xss/" class="post-category">
+                                xss
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-06-15
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    13 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><a name="wMTTC"></a></p>
+<h2 id="1-XSS漏洞简介"><a href="#1-XSS漏洞简介" class="headerlink" title="1 XSS漏洞简介"></a>1 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=XSS%E6%BC%8F%E6%B4%9E&spm=1001.2101.3001.7020">XSS漏洞</a>简介</h2><p><strong>定义&#x2F;原理</strong>：跨站脚本（Cross-Site Scripting），本应该缩写为CSS，但是该缩写已被层叠样式脚本Cascading Style Sheets所用，所以改简称为XSS。也称跨站脚本或<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB&spm=1001.2101.3001.7020">跨站脚本攻击</a>。跨站脚本攻击XSS通过将恶意得Script代码注入到Web页面中，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。<br /><strong>本质</strong>：是一种针对网站应用程序的安全漏洞攻击技术，是代码注入的一种 。<br /><strong>特点</strong>：XSS主要基于<strong>JavaScript</strong>完成恶意的攻击行为，由于JS可以非常灵活地操作html、css和浏览器，使得跨站脚本攻击的“想象”空间特别大。<br /><strong>攻击对象</strong>：被攻击者的浏览器。用户最简单的动作就是使用浏览器上网，并且浏览器中有javascript解释器，可以解析javascript，然后浏览器不会判断代码是否恶意，也就是说xss的对象是用户的浏览器。<br /><strong>一般的攻击过程</strong>：</p>
+<ul>
+<li>攻击者将恶意代码注入到服务器中（如论坛、留言板、邮件等）；</li>
+<li>用户在没有防备的情况下访问了被注入了恶意代码的服务器；</li>
+<li>服务器将含有恶意代码的网页响应给客户端；</li>
+<li>在客户端浏览器中触发JS恶意代码。</li>
+</ul>
+<p>微博、留言板、聊天室等等<strong>收集用户输入</strong>的地方，都可能被注入xss代码，都存在遭受xss的风险，只要没有对用户的输入进行严格过滤，就会被xss。当攻击者可以将恶意代码注入到服务器中，我们就认为其存在xss漏洞。<br><a name="L39ZL"></a></p>
+<h2 id="2-XSS漏洞危害"><a href="#2-XSS漏洞危害" class="headerlink" title="2 XSS漏洞危害"></a>2 XSS漏洞危害</h2><p>恶意用户利用xss代码攻击成功后，可能会得到很高的权限，XSS漏洞主要有以下危害：<br />（1）盗取各种用户账号；<br />（2）窃取用户Cookie资料，冒充用户身份进入网站；<br />（3）劫持用户会话，执行任意操作；是指操作用户浏览器；<br />（4）刷流量，执行弹窗广告；<br />（5）传播蠕虫病毒。<br />等等<br><a name="njRq8"></a></p>
+<h2 id="3-XSS漏洞分类"><a href="#3-XSS漏洞分类" class="headerlink" title="3 XSS漏洞分类"></a>3 XSS漏洞分类</h2><p>XSS漏洞大概可以分为三个类型：反射型XSS、存储型XSS和DOM型XSS。<br><a name="tlcP0"></a></p>
+<h3 id="3-1-反射型XSS"><a href="#3-1-反射型XSS" class="headerlink" title="3.1 反射型XSS"></a>3.1 反射型XSS</h3><p><strong>定义</strong>：反射型XSS是非持久性、参数型跨站脚本。反射型XSS的JS代码在web应用的<strong>参数</strong>（变量）中，如搜索框的反射型XSS。<br /><strong>特点</strong>：这种攻击方式往往具有一次性。<br /><strong>攻击方式</strong>：攻击者通过电子邮件等方式将包含xss代码的<strong>恶意链接</strong>发送给目标用户。当目标用户访问该链接时，服务器接收该目标用户的请求并进行处理，然后服务器把带有xss代码的数据发送给目标用户的浏览器，浏览器解析这段带有xss代码的恶意脚本后，就会触发xss漏洞。<br><a name="UP0ZK"></a></p>
+<h3 id="3-2-存储型XSS"><a href="#3-2-存储型XSS" class="headerlink" title="3.2 存储型XSS"></a>3.2 存储型XSS</h3><p><strong>定义</strong>：存储型XSS是持久性跨站脚本，持久性体现在xss代码不是在某个参数（变量）中，而是写进<strong>数据库或文件</strong>等可以永久保存数据的介质中。存储型XSS通常发生在留言板等地方。我们在留言板位置留言，将恶意代码写进数据库中。<br /><strong>特点</strong>：攻击脚本将被永久地存放在目标服务器的数据库或文件中，具有很高的隐蔽性。<br /><strong>攻击方式</strong>：这种攻击多见于论坛、博客和留言板，攻击者在发帖的过程中，将恶意脚本连同正常信息一起注入帖子的内容中。随着帖子被服务器存储下来，恶意脚本也永久地被存放在服务器的后端存储器中 。 当其他用户浏览这个被注入了恶意脚本的帖子时，恶意脚本会在他们的浏览器中得到执行 。所以需要浏览器从服务器载入恶意的xss代码，才能真正触发xss。<br /><strong>反射型与存储型SCC对比</strong>：<br />如果我们能够谨慎对待不明链接，那么反射型XSS攻击将没有多大作为，而存储型XSS则不同，由于它注入在一些我们信任的页面，因此无论我们多么小心，都难免会受到攻击。<br><a name="z99XF"></a></p>
+<h3 id="3-3-DOM型XSS"><a href="#3-3-DOM型XSS" class="headerlink" title="3.3 DOM型XSS"></a>3.3 DOM型XSS</h3><p><a name="vG3vN"></a></p>
+<h4 id="3-3-1-节点树模型"><a href="#3-3-1-节点树模型" class="headerlink" title="3.3.1 节点树模型"></a>3.3.1 节点树模型</h4><p><strong>DOM</strong>全称Document Object Model，中文为<strong>文档对象模型</strong>，使用DOM可以使程序和脚本能够动态访问和更新文档的内容、结构及样式 。<br />HTML 的标签都是节点，而这些节点组成了 DOM 的整体结构一一节点树。通过HTML DOM，树中的所有节点均可通过JavaScript进行访问 。 所有HTML元素（节点）均可被修改，也可以创建或删除节点 。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095605939.png" alt="image-20230725095605939"><br><a name="epFYj"></a></p>
+<h4 id="3-3-2-DOM型XSS"><a href="#3-3-2-DOM型XSS" class="headerlink" title="3.3.2 DOM型XSS"></a>3.3.2 DOM型XSS</h4><p><strong>定义</strong>：DOM型XSS比较特殊。owasp关于DOM型XSS的定义是基于DOM的XSS是一种XSS攻击，其中攻击的payload由于修改受害者浏览器页面的<strong>DOM树</strong>而执行的。其特殊的地方就是payload在浏览器本地修改DOM树而执行，并不会传到服务器上，这也就使得DOM型XSS比较难以检测。<br /><strong>网页的生成及修改</strong>：</p>
+<ul>
+<li>在网站页面中有许多元素，当页面到达浏览器时，浏览器会为页面创建一个顶级的Document<br />object文档对象，接着生成各个子文档对象，每个页面元素对应一个文档对象，每个文档对象包含属性、方法和事件 。</li>
+<li>可以通过JS脚本对<strong>文档对象</strong>进行编辑，从而修改页面的元素 。 也就是说，客户端的脚本程序可以通过DOM动态修改页面内容，从客户端获取DOM中的数据并在本地执行。由于DOM是在客户端修改节点的，所以基于DOM型的xss漏洞不需要与服务器端交互，它只发生在客户端处理数据的阶段。</li>
+</ul>
+<p><strong>攻击方式</strong>：用户请求一个经过专门设计的URL，它由攻击者提交，而且其中包含XSS代码。服务器的响应不会以任何形式包含攻击者的脚本。 当用户的浏览器处理这个响应时， DOM对象就会处理XSS代码，导致存在XSS漏洞 。<br><a name="QiBv5"></a></p>
+<h2 id="4-漏洞验证"><a href="#4-漏洞验证" class="headerlink" title="4 漏洞验证"></a>4 漏洞验证</h2><p>本博客内容仅供学习探讨，请勿滥用乱用<br><a name="Jb34m"></a></p>
+<h3 id="4-1-漏洞验证相关概念"><a href="#4-1-漏洞验证相关概念" class="headerlink" title="4.1 漏洞验证相关概念"></a>4.1 漏洞验证相关概念</h3><p><strong>POC</strong>：全称 ’ Proof of Concept ‘，中文 ’ 概念验证 ’ ，常指一段漏洞验证的代码。<br /><strong>EXP</strong>：全称 ’ Exploit ‘，中文 ’ 利用 ‘，指利用系统漏洞进行攻击的工具，即从漏洞检测验证到利用的工具。<br /><strong>Payload</strong>：中文 ’ 有效载荷 ‘，指成功exploit之后，真正在目标系统执行的代码或指令。<br /><strong>Shellcode</strong>：简单翻译 ’ shell代码 ‘，利用漏洞时所执行的代码，是Payload的一种。Shellcode也有很多种，包括正向的，反向的，甚至meterpreter。<br><a name="ZRuBw"></a></p>
+<h3 id="4-2-漏洞验证相关概念之间的区别"><a href="#4-2-漏洞验证相关概念之间的区别" class="headerlink" title="4.2 漏洞验证相关概念之间的区别"></a>4.2 漏洞验证相关概念之间的区别</h3><p>（1）<strong>POC与EXP对比</strong><br />POC是用来验证漏洞存在的，EXP是用来完整利用漏洞(包括从验证到利用全过程)的，两者通常不是一类，或者说，PoC通常是无害的，Exp通常是有害的，有了POC，才有EXP。<br />（2）<strong>Payload与Shellcode</strong><br />Payload有很多种，它可以是Shellcode，也可以直接是一段系统命令。<br />（3）<strong>Payload与EXP</strong><br />同一个Payload可以用于多个漏洞，但每个漏洞都有其自己的EXP，也就是说不存在通用的EXP。<br />（4）<strong>Payload模块</strong><br />在Metasploit Framework 6大模块中有一个Payload模块，在该模块下有Single、Stager、Stages这三种类型，Single是一个all-in-one的Payload，不依赖其他的文件，所以它的体积会比较大，Stager主要用于当目标计算机的内存有限时，可以先传输一个较小的Stager用于建立连接，Stages指利用Stager建立的连接下载后续的Payload。Stager和Stages都有多种类型，适用于不同场景。<br><a name="hmSnz"></a></p>
+<h3 id="4-3-常见POC"><a href="#4-3-常见POC" class="headerlink" title="4.3 常见POC"></a>4.3 常见POC</h3><p>可以用一段简单的代码（POC）来验证与检查漏洞的存在，常见的用于验证XSS漏洞存在的POC如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;<span class="title function_">alert</span>(<span class="regexp">/xss/</span>)&lt;<span class="regexp">/script&gt;  /</span><span class="regexp">/弹框，最常用 </span></span><br><span class="line"><span class="regexp">&lt;script&gt;confirm(&#x27;xss&#x27;)&lt;/</span>script&gt;  <span class="comment">//弹出确认框 </span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">prompt</span>(<span class="string">&#x27;xss&#x27;</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span>   <span class="comment">//弹出输入框 </span></span><br></pre></td></tr></table></figure>
+<p>我们发现提交的代码<script>alert(/xss/)</script> ，被当作字符串输出在HTML页面中，浏览器会根据<script>标签识别为JS代码语句，并会执行它，执行弹窗操作。也就是说，可以执行<strong>其他任意JS代码</strong>，因此我们验证了XSS漏洞的存在性。<br><a name="O6OGC"></a></p>
+<h2 id="5-XSS漏洞验证实例"><a href="#5-XSS漏洞验证实例" class="headerlink" title="5 XSS漏洞验证实例"></a>5 XSS漏洞验证实例</h2><p><a name="eFFha"></a></p>
+<h3 id="5-1-反射型XSS漏洞验证实例"><a href="#5-1-反射型XSS漏洞验证实例" class="headerlink" title="5.1 反射型XSS漏洞验证实例"></a>5.1 反射型XSS漏洞验证实例</h3><p>反射型XSS漏洞常存在于参数中。本实验在XSS-labs第一关做验证。具体步骤如下：<br />（1）访问win2008R2SP1虚拟机上的xss-labs靶场，页面如下。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095630662.png" alt="image-20230725095630662"><br />（2）点击图片，进入xss-labs靶场的第一关，如下所示<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095641289.png" alt="image-20230725095641289"><br />（3）我们将URL中的参数修改为?name=a回车，可以看到弹出以下页面，并将我们的内容显示在页面上。输入什么网页则返回什么，说明可能是一个XSS漏洞注入点。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095700555.png" alt="image-20230725095700555"><br />（4）我们将参数修改为?name=<script>alert(/xss/)</script>，测试是否触发弹窗。回车可以看到弹出窗口，说明网站后台未对输入参数进行过滤，存在xss漏洞。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095712043.png" alt="image-20230725095712043"><br />（5)我们右键网页，点击查看源码，如下。由于该网页没有对输入输出内容做任何的检验与过滤，导致这种异常的内容输出到客户端浏览器，浏览器对内容做解析时，将内容按script标签进行解析，故弹窗。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;&lt;!--STATUS OK--&gt;&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html;charset=utf-8&quot;&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">window.alert = function()  </span><br><span class="line">&#123;     </span><br><span class="line">confirm(&quot;完成的不错！&quot;);</span><br><span class="line"> window.location.href=&quot;level2.php?keyword=test&quot;; </span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;title&gt;欢迎来到level1&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;object style=&quot;border:0px&quot; type=&quot;text/x-scriptlet&quot; data=&quot;http://xss.tv/themes/default/templates/head.html&quot; width=100% height=50&gt;&lt;/object&gt;</span><br><span class="line">&lt;h1 align=center&gt;欢迎来到level1&lt;/h1&gt;</span><br><span class="line">&lt;h2 align=center&gt;欢迎用户&lt;script&gt;alear(/xss/)&lt;/script&gt;&lt;/h2&gt;&lt;center&gt;&lt;img src=level1.png&gt;&lt;/center&gt;</span><br><span class="line">&lt;h3 align=center&gt;payload的长度:29&lt;/h3&gt;&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p><a name="Qye7g"></a></p>
+<h3 id="5-2-存储型XSS漏洞验证实例"><a href="#5-2-存储型XSS漏洞验证实例" class="headerlink" title="5.2 存储型XSS漏洞验证实例"></a>5.2 存储型XSS漏洞验证实例</h3><p>存储型XSS漏洞常存在于数据库内容中，如留言板等。此处利用之前搭建的论坛网站的留言功能作为实验平台，该平台的搭建过程参考《<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_64378913/article/details/123934548?spm=1001.2014.3001.5502">【(SQL+HTML+PHP)综合】一个简单论坛网站的综合开发案例</a>》。具体过程如下：<br />（1）我们登录访问上述网站，使用我们之前住过的账号a，密码1。登录后返回首页，点击“我要留言”。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095725638.png" alt="image-20230725095725638"><br />（2）使用留言功能，留下如下的内容：。点击提交<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095736330.png" alt="image-20230725095736330"><br />（3）再次返回首页，可以看到刚刚留下的留言。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095747378.png" alt="image-20230725095747378"><br />（4）点击该留言，出现弹窗，这就是存储型XSS漏洞。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095759125.png" alt="image-20230725095759125"><br />（5)右键该页面，查看网页源码，如下。我们看到因为我们搭建的平台没有对输入输出内容做任何的检验与过滤，导致这种异常的内容输出到客户端浏览器，浏览器对内容做解析时，将内容按script标签进行解析，故弹窗。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset = &quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;留言论坛&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;留言内容&lt;/h1&gt;&lt;a href = &#x27;./index.php&#x27;&gt;返回首页&lt;/a&gt;&lt;hr /&gt;</span><br><span class="line">a:存储型xss&lt;hr/&gt;&lt;script&gt;alert(/xss/)&lt;/script&gt;&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p><a name="PItHm"></a></p>
+<h3 id="5-3-DOM型XSS漏洞验证实例"><a href="#5-3-DOM型XSS漏洞验证实例" class="headerlink" title="5.3 DOM型XSS漏洞验证实例"></a>5.3 DOM型XSS漏洞验证实例</h3><p>我们将以下代码存在phpstudy网站的根目录下的DOM-XSS.php文件中，稍后进行测试。该代码中的script标签内的内容意思是，定义一个变量a并赋值为URL，为a解码，将message&#x3D;后面的内容写入到DOM树中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;title&gt;DOM-XSS&lt;/title&gt;</span><br><span class="line">	&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">	var a = document.URL;  //将当前页面的url赋值给变量a</span><br><span class="line">	a = unescape(a);       //url有些代码是经过url编码之后的，此为将url编码进行解码</span><br><span class="line">	document.write(a.substring(a.indexOf(&quot;message=&quot;)+8,a.length));</span><br><span class="line">	//a.indexOf：字符串首次出现的位置，+8（&quot;message=&quot;为8字符）为取message=之后的内容</span><br><span class="line">	//document.write将内容写到html页面中</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>（1）我们通过浏览器访问该网页，因为我们还没有给URL传递参数message，此处将内容以存文本的形式输出。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095812266.png" alt="image-20230725095812266"><br />解析为什么页面这样显示：</p>
+<ul>
+<li>a此处为<a target="_blank" rel="noopener" href="http://172.16.1.1/DOM-XSS.php%EF%BC%9B">http://172.16.1.1/DOM-XSS.php；</a></li>
+<li>document.write(a.substring(a.indexOf(“message&#x3D;”)+8,a.length));<br />①a为变量也即为对象，对象的访问为[对象名称.属性]；<br />②a.indexOf(“message&#x3D;”)是指message&#x3D;开始出现时的起始位置，此处没有message&#x3D;，即为0；<br />③a.indexOf(“message&#x3D;”)+8：即为8；<br />④a.substring(a.indexOf(“message&#x3D;”)+8,a.length)：取截取a的值为字符串，即”<a target="_blank" rel="noopener" href="http://172.16.1.1/DOM-XSS.php%22%EF%BC%8C%E4%BB%8E%E7%AC%AC8%E4%BD%8D%E5%BC%80%E5%A7%8B%EF%BC%8C%E6%88%AA%E5%8F%96a%E7%9A%84%E9%95%BF%E5%BA%A6%E4%B8%AA%E5%AD%97%E7%AC%A6%EF%BC%9B">http://172.16.1.1/DOM-XSS.php&quot;，从第8位开始，截取a的长度个字符；</a></li>
+</ul>
+<p>（2）修改参数为?message&#x3D;good，回车时页面显示good。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095824340.png" alt="image-20230725095824340"><br />（3）修改参数为?message&#x3D;<script>alert(/xss/)</script>，回车时则出现弹窗。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095836815.png" alt="image-20230725095836815"><br />（4）我们右键查看源代码，发现代码与刚刚编写的一致，并没有弹窗的内容。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095847493.png" alt="image-20230725095847493"><br />（5）审查网页元素，则可以看到DOM树这里多出了个弹窗内容，就是上述document语句修改生成的。（有的浏览器查看结果有区别，可以试试不同浏览器的解析结果）<br />修改DOM树，浏览器重新渲染页面。<img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095900321.png" alt="image-20230725095900321"><br />（6）修改参数为#message&#x3D;<script>alert(/xss/)</script>，回车时也出现弹窗。#后面内容为锚点，锚点内容不会提交到服务器。<br /><img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/image-20230725095910748.png" alt="image-20230725095910748"><br><a name="EbMo2"></a></p>
+<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6 总结"></a>6 总结</h2><p>（1）掌握XSS的攻击过程；<br />（2）掌握XSS的分类及各类原理；<br />（3）了解XSS的危害。<br />（4）掌握XSS的验证</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Serendipity</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2023/06/15/xss/">http://example.com/2023/06/15/xss/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Serendipity</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%BD%91%E5%AE%89/">
+                                    <span class="chip bg-color">网安</span>
+                                </a>
+                            
+                                <a href="/tags/xss/">
+                                    <span class="chip bg-color">xss</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%BC%8F%E6%B4%9E/">
+                                    <span class="chip bg-color">漏洞</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/06/25/shu-ju-ku-lian-jie/">
+                    <div class="card-image">
+                        
+                        <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/108.jpg" class="responsive-img" alt="数据库连接">
+                        
+                        <span class="card-title">数据库连接</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-06-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5/" class="post-category">
+                                    数据库连接
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                    <a href="/tags/php/">
+                        <span class="chip bg-color">php</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/06/15/xss/">
+                    <div class="card-image">
+                        
+                        <img src="https://typora-1317091701.cos.ap-beijing.myqcloud.com/typora/101.jpg" class="responsive-img" alt="xss">
+                        
+                        <span class="card-title">xss</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/xss/" class="post-category">
+                                    xss
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E5%AE%89/">
+                        <span class="chip bg-color">网安</span>
+                    </a>
+                    
+                    <a href="/tags/xss/">
+                        <span class="chip bg-color">xss</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%BC%8F%E6%B4%9E/">
+                        <span class="chip bg-color">漏洞</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <a href="/about" target="_blank">Serendipity</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">32.6k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
